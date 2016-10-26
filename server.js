@@ -6,6 +6,8 @@ var session = require('express-session');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github2').Strategy;
 var routes = require('./routes');
+//this will only load the config file if on development server
+//this is so we don't receive an error on heroku
 if(process.env.NODE_ENV !== 'production') {
   var config = require('./config');
 }
