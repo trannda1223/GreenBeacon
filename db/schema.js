@@ -86,7 +86,7 @@ Claim.belongsTo(Ticket);
 
 //Create Tables
 db
-  .sync({force: false})
+  .sync({force: true})
   .then(function() {
     console.log('Tables created');
  });
