@@ -1,4 +1,6 @@
-angular.module('app.services', [])
+
+
+angular.module('app.services', ['btford.socket-io'])
 
 //Tickets factory - handles all tickets manipulations
 .factory('Tickets', ['$http', '$window', function ($http, $window) {
@@ -24,6 +26,9 @@ angular.module('app.services', [])
       method: 'POST',
       url: '/tickets',
       data: ticket
+    })
+    .then(function () {
+      Socket.emit('addTicket');
     });
   };
 
@@ -33,7 +38,10 @@ angular.module('app.services', [])
       method: 'PUT',
       url: '/claimed',
       data: ticket
-    });
+    })
+    .then(function () {
+      Socket.emit('claimTicket');
+    });;
   };
 
   //Sends POST request to the server in order to erase the ticket from claims table
@@ -42,7 +50,10 @@ angular.module('app.services', [])
       method: 'POST',
       url: '/eraseClaim',
       data: data
-    });
+    })
+    .then(function () {
+      Socket.emit('eraseClaim');
+    });;
   };
 
   //Sends PUT request to the server in order to mark the ticket as solved
@@ -51,7 +62,10 @@ angular.module('app.services', [])
       method: 'PUT',
       url: '/solved',
       data: ticket
-    });
+    })
+    .then(function () {
+      Socket.emit('solveTicket');
+    });;
   };
 
   //Sends PUT request to the server in order to mark the ticket as NOT solved
@@ -60,7 +74,10 @@ angular.module('app.services', [])
       method: 'PUT',
       url: '/unsolved',
       data: ticket
-    });
+    })
+    .then(function () {
+      Socket.emit('unsolveTicket');
+    });;
   };
 
   return {
@@ -90,4 +107,9 @@ angular.module('app.services', [])
     signin: signin,
     signout: signout
   }
+}])
+
+//Socket factory - returns provided socket factory from angular-socket-io
+.factory('Socket', ['socketFactory', function(socketFactory){
+  return socketFactory();
 }]);

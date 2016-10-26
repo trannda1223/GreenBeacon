@@ -1,5 +1,11 @@
 // basic server
 var express = require('express');
+var app = express();
+
+//socket.io
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 // Middleware
 var parser = require('body-parser');
 var session = require('express-session');
@@ -7,8 +13,6 @@ var passport = require('passport');
 var GitHubStrategy = require('passport-github2').Strategy;
 var routes = require('./routes');
 var config = require('./example_config');
-
-var app = express();
 
 passport.serializeUser(function(id, done) {
   done(null, id);
@@ -46,10 +50,41 @@ app.use(parser.json());
 
 routes.router(app);
 
-app.set('port', process.env.PORT || 3000);
 
-app.listen(app.get('port'), function() {
-  console.log('listening on port: ', app.get('port'))
+//establish socket connection
+io.on('connection', function(socket){
+  console.log('a user connected!');
+
+  //socket event listeners / broadcasters
+  socket.on('addTicket', function() {
+    io.emit('ticketChange');
+    console.log('ticketAdded');
+  });
+  socket.on('claimTicket', function() {
+    io.emit('ticketChange');
+    console.log('ticketClaimed');
+  });
+  socket.on('eraseClaim', function() {
+    io.emit('ticketChange');
+    console.log('claimErased');
+  });
+  socket.on('solveTicket', function() {
+    io.emit('ticketChange');
+    console.log('ticketSolved');
+  });
+  socket.on('unsolveTicket', function() {
+    io.emit('ticketChange');
+    console.log('ticketUnsolved');
+  });
+  socket.on('disconnect', function(){
+    console.log('a user disconnected!');
+  })
 });
+
+//start server
+http.listen(3000, function() {
+  console.log('listening on port: ' + 3000);
+});
+
 
 module.exports.app = app;

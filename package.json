@@ -27,6 +27,7 @@
     "passport": "^0.3.2",
     "passport-github2": "^0.1.10",
     "pg": "^6.1.0",
-    "sequelize": "^3.24.4"
+    "sequelize": "^3.24.4",
+    "socket.io": "^1.5.1"
   }
 }
