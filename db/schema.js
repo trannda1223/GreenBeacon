@@ -1,7 +1,8 @@
 var pg = require('pg')
 var Sequelize = require('sequelize');
 var db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/beacon', {
-  dialect: 'postgres'
+  dialect: 'postgres',
+  logging: false
 });
 
 //Establishes the connection to the database
@@ -22,9 +23,18 @@ var User = db.define('user', {
     autoIncrement: true
   },
   username: Sequelize.STRING, //GitHub username
-  displayname: Sequelize.STRING //full first and last name
+  displayname: Sequelize.STRING, //full first and last name
+  
+  authorizationlevel: {
+    type: Sequelize.INTEGER, //0 is superUser 1 is Student
+    defaultValue: 1
+  }
 });
-
+  //Creates table for Ticket Importance Levels
+var TicketLevel = db.define('ticketlevel', {
+  authorizationlevel: Sequelize.INTEGER,
+  threshold: Sequelize.INTEGER
+});
 //Creates table of tickets
 var Ticket = db.define('ticket', {
   id: {
@@ -51,6 +61,10 @@ var Ticket = db.define('ticket', {
   preSolved: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  unsolvedCount:{
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 });
 
