@@ -120,6 +120,10 @@ module.exports = {
             res.end();
           });
       });
-  }
+  },
+
+  // seedDB: function(){
+  //   TicketLevel.create({})
+  // }
 
 };
