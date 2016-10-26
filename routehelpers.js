@@ -5,6 +5,7 @@ var Sequelize = require('sequelize');
 var User = require('./db/schema').User;
 var Ticket = require('./db/schema').Ticket;
 var Claim = require('./db/schema').Claim;
+var TicketLevel = require('./db/schema').TicketLevel;
 
 // establish database connection for querying
 var db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/beacon', {
@@ -121,5 +122,7 @@ module.exports = {
           });
       });
   }
+
+
 
 };

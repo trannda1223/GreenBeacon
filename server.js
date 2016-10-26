@@ -38,6 +38,8 @@ app.use(session({
   cookie: {maxAge: 600000*3} //30 mins
 }));
 
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -51,5 +53,7 @@ app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
   console.log('listening on port: ', app.get('port'))
 });
+
+
 
 module.exports.app = app;
