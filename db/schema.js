@@ -126,7 +126,7 @@ var initializeTicketLevels = function() {
     authorizationlevel: 3,
     threshold: 100
   }];
-
+  //this empties the TicketLevel relation, and then intializes it with default values.  These values can be changed by administrators.
   TicketLevel.destroy({where: {}}).then(function(){
     TicketLevel.bulkCreate(initialLevels).then(function(){
       return TicketLevel.findAll();
