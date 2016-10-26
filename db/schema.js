@@ -99,7 +99,7 @@ Claim.belongsTo(Ticket);
 
 //Create Tables
 db
-  .sync({force: false})
+  .sync({force: Boolean(Number(process.env.SYNCFORCE))})
   .then(function() {
     console.log('Tables created');
     //invoking of the ticketlevel intialization function - only if environment variable INITIALIZE is set to true
