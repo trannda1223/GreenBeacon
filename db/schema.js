@@ -34,7 +34,7 @@ var User = db.define('user', {
 var TicketLevel = db.define('ticketlevel', {
   authorizationlevel: Sequelize.INTEGER,
   threshold: Sequelize.INTEGER
-},
+});
 //Creates table of tickets
 var Ticket = db.define('ticket', {
   id: {
