@@ -23,7 +23,12 @@ var User = db.define('user', {
     autoIncrement: true
   },
   username: Sequelize.STRING, //GitHub username
-  displayname: Sequelize.STRING //full first and last name
+  displayname: Sequelize.STRING, //full first and last name
+  
+  authorizationlevel: {
+    type: Sequelize.INTEGER, //0 is superUser 1 is Student
+    defaultValue: 1
+  }
 });
 
 //Creates table of tickets
@@ -52,6 +57,10 @@ var Ticket = db.define('ticket', {
   preSolved: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  unsolvedCount:{
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 });
 
