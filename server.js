@@ -53,7 +53,7 @@ app.use(parser.json());
 routes.router(app);
 
 
-app.set('port', process.env.PORT);
+app.set('port', process.env.PORT || 3000);
 
 var server = app.listen(app.get('port'), function(){
   console.log('listening on port' + app.get('port'));
