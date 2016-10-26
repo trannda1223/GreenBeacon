@@ -26,6 +26,9 @@ angular.module('app.services', ['btford.socket-io'])
       method: 'POST',
       url: '/tickets',
       data: ticket
+    })
+    .then(function () {
+      Socket.emit('addTicket');
     });
   };
 
@@ -35,7 +38,10 @@ angular.module('app.services', ['btford.socket-io'])
       method: 'PUT',
       url: '/claimed',
       data: ticket
-    });
+    })
+    .then(function () {
+      Socket.emit('claimTicket');
+    });;
   };
 
   //Sends POST request to the server in order to erase the ticket from claims table
@@ -44,7 +50,10 @@ angular.module('app.services', ['btford.socket-io'])
       method: 'POST',
       url: '/eraseClaim',
       data: data
-    });
+    })
+    .then(function () {
+      Socket.emit('eraseClaim');
+    });;
   };
 
   //Sends PUT request to the server in order to mark the ticket as solved
@@ -53,7 +62,10 @@ angular.module('app.services', ['btford.socket-io'])
       method: 'PUT',
       url: '/solved',
       data: ticket
-    });
+    })
+    .then(function () {
+      Socket.emit('solveTicket');
+    });;
   };
 
   //Sends PUT request to the server in order to mark the ticket as NOT solved
@@ -62,7 +74,10 @@ angular.module('app.services', ['btford.socket-io'])
       method: 'PUT',
       url: '/unsolved',
       data: ticket
-    });
+    })
+    .then(function () {
+      Socket.emit('unsolveTicket');
+    });;
   };
 
   return {

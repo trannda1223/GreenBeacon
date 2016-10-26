@@ -2,13 +2,15 @@
 
 angular.module('app.queue', [])
 
-.controller('QueueController', ['$scope', 'Tickets', 'Auth', '$interval', 'Socket', function($scope, Tickets, Auth, $interval, Socket){
+.controller('QueueController', ['$scope', 'Tickets', 'Auth', function($scope, Tickets, Auth){
 
   $scope.data = {};
   var SVGpulse;
   var SVGdot;
 
-
+  Socket.on('ticketChange', function() {
+    initializeQueue();
+  });
 
   var initializeQueue = function() {
     //retrieve tickets from database
@@ -119,7 +121,7 @@ angular.module('app.queue', [])
   Tickets.addTicket($scope.ticket)
     .then(function () {
       $scope.ticket = {};
-      initializeQueue();
+      console.log('removed');
     })
     .catch(function (err) {
       console.log(err);
@@ -136,7 +138,7 @@ angular.module('app.queue', [])
       //pass the claimed ticket to claim Ticket service
     Tickets.claimTicket(ticket)
       .then(function () {
-        initializeQueue();
+        console.log('removed');
       })
       .catch(function (err) {
         console.log(err);
@@ -149,7 +151,7 @@ angular.module('app.queue', [])
     //if 'Solved' has been clicked on the ticket, pass that ticket into solveTicket service
      Tickets.solveTicket(ticket)
        .then(function () {
-         initializeQueue();
+         console.log('removed');
        })
        .catch(function (err) {
          console.log(err);
@@ -162,24 +164,15 @@ angular.module('app.queue', [])
     //if 'Not Solved' is clicked, pass the ticket to unsolveTicket service
      Tickets.unsolveTicket(ticket)
       .then(function () {
-        initializeQueue();
+        console.log('removed');
       })
       .catch(function (err) {
         console.log(err);
       });
   }
 
-  initializeQueue();
-
-  //place initialize queue in an interval so new tickets can be loaded continuously every 3 seconds
-  var interval = $interval(initializeQueue, 3000);
-  var isRunning = true;
-
-
   //functionality: on hover of ticket, hide all dots that do not match ticket's x and y coordinates
   $scope.showDot = function (ticketX, ticketY) {
-    $interval.cancel(interval);
-    isRunning = false;
 
     //iterate through all dots
     for (var i = 0; i < SVGdot.length; i++) {
@@ -195,12 +188,6 @@ angular.module('app.queue', [])
     }
   }
 
-  //renews interval if it has not been running already when hover event is over
-  $scope.renew = function () {
-    if (!isRunning) {
-      initializeQueue();
-      interval = $interval(initializeQueue, 3000);
-      isRunning = true;
-    }
-  };
-}])
+  initializeQueue();
+
+}]);
