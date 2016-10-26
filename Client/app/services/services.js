@@ -1,4 +1,6 @@
-angular.module('app.services', [])
+
+
+angular.module('app.services', ['btford.socket-io'])
 
 //Tickets factory - handles all tickets manipulations
 .factory('Tickets', ['$http', '$window', function ($http, $window) {
@@ -90,4 +92,9 @@ angular.module('app.services', [])
     signin: signin,
     signout: signout
   }
+}])
+
+//Socket factory - returns provided socket factory from angular-socket-io
+.factory('Socket', ['socketFactory', function(socketFactory){
+  return socketFactory();
 }]);
