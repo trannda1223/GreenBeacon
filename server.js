@@ -1,7 +1,6 @@
 // basic server
 var express = require('express');
 var app = express();
-
 //socket.io
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -15,7 +14,7 @@ var routes = require('./routes');
 //this will only load the config file if on development server
 //this is so we don't receive an error on heroku
 if(process.env.NODE_ENV !== 'production') {
-  var config = require('./config');
+  var config = require('./config.js');
 }
 
 passport.serializeUser(function(id, done) {
@@ -89,7 +88,7 @@ io.on('connection', function(socket){
 
 //start server
 http.listen(3000, function() {
-  console.log('listening on port: ' + 3000);
+  console.log('listening on port: ' + port);
 });
 
 module.exports.app = app;
