@@ -1,9 +1,6 @@
 // basic server
 var express = require('express');
 var app = express();
-//socket.io
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
 
 // Middleware
 var parser = require('body-parser');
@@ -56,6 +53,14 @@ app.use(parser.json());
 routes.router(app);
 
 
+app.set('port', process.env.PORT);
+
+var server = app.listen(app.get('port'), function(){
+  console.log('listening on port' + app.get('port'));
+})
+
+var io = require('socket.io')(server);
+
 //establish socket connection
 io.on('connection', function(socket){
   console.log('a user connected!');
@@ -86,9 +91,4 @@ io.on('connection', function(socket){
   })
 });
 
-//start server
-http.listen(3000, function() {
-  console.log('listening on port: 3000');
-});
-
-module.exports.app = app;
+module.exports.app = server;
