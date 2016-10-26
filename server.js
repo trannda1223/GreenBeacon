@@ -12,7 +12,11 @@ var session = require('express-session');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github2').Strategy;
 var routes = require('./routes');
-var config = require('./example_config');
+//this will only load the config file if on development server
+//this is so we don't receive an error on heroku
+if(process.env.NODE_ENV !== 'production') {
+  var config = require('./config');
+}
 
 passport.serializeUser(function(id, done) {
   done(null, id);
@@ -41,6 +45,8 @@ app.use(session({
   saveUninitialized: true,
   cookie: {maxAge: 600000*3} //30 mins
 }));
+
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -85,6 +91,5 @@ io.on('connection', function(socket){
 http.listen(3000, function() {
   console.log('listening on port: ' + 3000);
 });
-
 
 module.exports.app = app;
