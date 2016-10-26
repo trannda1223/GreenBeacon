@@ -1,1 +1,1 @@
-web: node --use_strict server.js
+web: node --use_strict server.js -p $PORT
