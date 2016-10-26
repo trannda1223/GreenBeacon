@@ -112,9 +112,10 @@ module.exports = {
 
   // flag the given ticket as not solved in the tickets table
   tagUnSolved: function(req, res) {
+    console.log(req.body);
     Ticket.find({ where: { id: req.body.id } })
       .then(function(ticket) {
-        ticket.update({ preSolved: false, claimed: false })
+        ticket.update({ preSolved: false, claimed: false, unsolvedCount: ticket.get('unsolvedCount') + 1})
           .then(function () {
             res.end();
           });
