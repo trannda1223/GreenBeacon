@@ -2,7 +2,7 @@
 
 angular.module('app.queue', [])
 
-.controller('QueueController', ['$scope', 'Tickets', 'Auth', '$interval', function($scope, Tickets, Auth, $interval){
+.controller('QueueController', ['$scope', 'Tickets', 'Auth', '$interval', 'Socket', function($scope, Tickets, Auth, $interval, Socket){
 
   $scope.data = {};
   var SVGpulse;
@@ -65,7 +65,7 @@ angular.module('app.queue', [])
   $scope.ticket = {};
 
   $scope.addTicket = function () {
-    
+
   //assign random color for each ticket's dot
   function getRandomColor() {
     var letters = '0123456789ABCDEF'.split(''),
@@ -195,7 +195,7 @@ angular.module('app.queue', [])
     }
   }
 
-  //renews interval if it has not been running already when hover event is over 
+  //renews interval if it has not been running already when hover event is over
   $scope.renew = function () {
     if (!isRunning) {
       initializeQueue();
