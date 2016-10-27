@@ -2,7 +2,7 @@
 
 angular.module('app.queue', [])
 
-.controller('QueueController', ['$scope', 'Tickets', 'Auth', function($scope, Tickets, Auth){
+.controller('QueueController', ['$scope', 'Tickets', 'Auth', '$location', function($scope, Tickets, Auth, $location){
 
   $scope.data = {};
   var SVGpulse;
@@ -130,6 +130,10 @@ angular.module('app.queue', [])
 
   $scope.signout = function () {
     Auth.signout();
+  }
+
+  $scope.admin = function(){
+    $location.path('/admin');
   }
 
   $scope.claimTicket = function (ticket) {

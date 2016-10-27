@@ -1,0 +1,15 @@
+<div ng-init='loadData()'>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Authorization Level</th>
+      <th>Is Administrator?</th>
+    </tr>
+    <tr ng-repeat="user in users" ng-model='person'>
+      <td>{{user.displayname}}</td>
+      <td><input type='text' placeholder='{{user.authorizationlevel}}'/></td>
+      <!--write logic to turn numbers into 'student', 'fellow' or 'teacher'-->
+      <td><input type='radio'/>{{user.isadmin}}</td>
+    </tr>
+  </table>
+</div>
