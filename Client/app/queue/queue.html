@@ -11,9 +11,23 @@
   <!-- Tickets queue -->
 	<div id="queueContainer">
 		<div class="list-group">
-		  <div class="ticket" ng-repeat="ticket in data.tickets | filter: {solved: false} | orderBy:'-id' ">
+		  <div class='ticketNav'> 
+		  	<button type='btn' class='lobby btn btn-default' ng-click="initializeQueue()">Lobby</button>
+		  	<button type='btn' class='user btn btn-default' ng-click="showUserTickets()">User</button>
+		  </div>
+		  <div  class="ticket" ng-repeat="ticket in data.tickets | filter: {solved: false} | orderBy:'id' ">
 		    <!-- Renders each ticket to the queue -->
-		    <a class="list-group-item list-group-item-action" ng-class="{'ticket-claimed list-group-item list-group-item-action': ticket.claimed, 'list-group-item list-group-item-action': !ticket.claimed}" ng-mouseover = 'showDot(ticket.x, ticket.y)' ng-mouseleave = 'renew()' x = {{ticket.x}} y ={{ticket.y}}>
+
+		    <a class="list-group-item list-group-item-action" 
+		    ng-class="{
+		    'ticket-claimed list-group-item list-group-item-action': ticket.claimed,
+		    'studentTicket list-group-item list-group-item-action' : (ticket.unsolvedCount <= 1), 
+		    'fellowTicket list-group-item list-group-item-action' : (ticket.unsolvedCount === 2),
+		    'instructorTicket list-group-item list-group-item-action' : (ticket.unsolvedCount > 2),
+		    'list-group-item list-group-item-action': !ticket.claimed
+		    }" 
+
+		    ng-mouseover = 'showDot(ticket.x, ticket.y)' ng-mouseleave = 'renew()' x = {{ticket.x}} y ={{ticket.y}}>
 
 
         	<h5 class="list-group-item-heading" ng-bind="ticket.user.displayname"></h5>
@@ -49,7 +63,7 @@
 	<div id="map">
 		<svg width="400" height="800">
 		<!-- Loads map image -->
-			<image x="0" y="0" width="400" height="800" xlink:href="../../../smaller.png" />
+			<image ng-click="getCoordinates($event)" x="20" y="20" width="400" height="800" xlink:href="../../../smaller.png" />
 				<!-- Adds pulsing dots for each ticket -->
 				<foreignobject  ng-repeat="ticket in data.tickets | filter: {solved: false}" ng-attr-x="{{ticket.x}}" ng-attr-y="{{ticket.y}}">
 					<div id="holder">
