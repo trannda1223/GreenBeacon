@@ -69,12 +69,13 @@ module.exports = {
 
       })
 
+  },
 
+  // query for tickets for currently signed in user
 
-
-
-
-
+  getUserTickets: function(req, res) {
+    console.log(req);
+    res.send(200);
   },
 
   // create a new ticket instance and add it to the tickets table

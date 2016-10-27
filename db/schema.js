@@ -43,6 +43,7 @@ var TicketLevel = db.define('ticketlevel', {
   },
   threshold: Sequelize.INTEGER
 });
+
 //Creates table of tickets
 var Ticket = db.define('ticket', {
   id: {

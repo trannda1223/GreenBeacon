@@ -28,6 +28,21 @@ body {
   width: 250px;
 }
 
+.ticketNav {
+	color: white;
+	
+}
+
+.lobby {
+	display: inline-block;
+
+}
+
+.user {
+	display: inline-block;
+
+}
+
 .list-group {
 	height: 575px;
 	overflow: auto;
@@ -48,6 +63,7 @@ body {
 .ticket {
 	padding-bottom: 2px;
 }
+
 
 .list-group-item, .form-control, .input-text {
 	background-color: #E8E9F9;
@@ -85,6 +101,19 @@ body {
 .ticket-claimed, .ticket-claimed:hover {
 	background-color: grey;
 }
+
+.studentTicket {
+	background-color: #48D962;
+}
+
+.fellowTicket {
+	background-color: #FFFFA4;
+}
+
+.instructorTicket {
+	background-color: #E45454;
+}
+
 
 #queueContainer, #map {
 	display: inline-block
@@ -256,3 +285,6 @@ footer {
 .signinbtn:hover, .signout:hover {
   background-color: #c7c8d6;
 }
+
+
+
