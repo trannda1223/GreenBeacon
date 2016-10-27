@@ -1,5 +1,7 @@
 // basic server
 var express = require('express');
+var app = express();
+
 // Middleware
 var parser = require('body-parser');
 var session = require('express-session');
@@ -9,10 +11,8 @@ var routes = require('./routes');
 //this will only load the config file if on development server
 //this is so we don't receive an error on heroku
 if(process.env.NODE_ENV !== 'production') {
-  var config = require('./config');
+  var config = require('./config.js');
 }
-
-var app = express();
 
 passport.serializeUser(function(id, done) {
   done(null, id);
@@ -52,12 +52,43 @@ app.use(parser.json());
 
 routes.router(app);
 
+
 app.set('port', process.env.PORT || 3000);
 
-app.listen(app.get('port'), function() {
-  console.log('listening on port: ', app.get('port'))
+var server = app.listen(app.get('port'), function(){
+  console.log('listening on port' + app.get('port'));
+})
+
+var io = require('socket.io')(server);
+
+//establish socket connection
+io.on('connection', function(socket){
+  console.log('a user connected!');
+
+  //socket event listeners / broadcasters
+  socket.on('addTicket', function() {
+    io.emit('ticketChange');
+    console.log('ticketAdded');
+  });
+  socket.on('claimTicket', function() {
+    io.emit('ticketChange');
+    console.log('ticketClaimed');
+  });
+  socket.on('eraseClaim', function() {
+    io.emit('ticketChange');
+    console.log('claimErased');
+  });
+  socket.on('solveTicket', function() {
+    io.emit('ticketChange');
+    console.log('ticketSolved');
+  });
+  socket.on('unsolveTicket', function() {
+    io.emit('ticketChange');
+    console.log('ticketUnsolved');
+  });
+  socket.on('disconnect', function(){
+    console.log('a user disconnected!');
+  })
 });
 
-
-
-module.exports.app = app;
+module.exports.app = server;

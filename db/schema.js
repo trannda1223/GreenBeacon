@@ -25,7 +25,7 @@ var User = db.define('user', {
   },
   username: Sequelize.STRING, //GitHub username
   displayname: Sequelize.STRING, //full first and last name
-  
+
   authorizationlevel: {
     type: Sequelize.INTEGER, //1 is Student
     defaultValue: 1
@@ -134,7 +134,7 @@ var initializeTicketLevels = function() {
       console.log('Ticket Levels initialized');
     });
   });
-  
+
 
 
 
