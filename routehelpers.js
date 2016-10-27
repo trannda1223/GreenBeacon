@@ -43,6 +43,11 @@ module.exports = {
     }
   },
 
+  //validates whether the user is an administrator
+  isAdmin: function(req, res, next) {
+
+  },
+
   getUsers: function(req, res) {
     User.findAll()
     .then(function(users) {
