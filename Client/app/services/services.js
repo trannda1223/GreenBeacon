@@ -1,6 +1,6 @@
 
 
-angular.module('app.services', ['btford.socket-io'])
+angular.module('app.services', [])
 
 //Tickets factory - handles all tickets manipulations
 .factory('Tickets', ['$http', '$window', function ($http, $window) {
@@ -90,7 +90,7 @@ angular.module('app.services', ['btford.socket-io'])
   }
 }])
 
-//Tickets factory - handles authentication processes
+//Auth factory - handles authentication processes
 .factory('Auth', ['$http', '$window', function($http, $window){
 
   //Redirects to path, so GitHub OAuth process will be triggered
@@ -109,7 +109,28 @@ angular.module('app.services', ['btford.socket-io'])
   }
 }])
 
-//Socket factory - returns provided socket factory from angular-socket-io
-.factory('Socket', ['socketFactory', function(socketFactory){
-  return socketFactory();
-}]);
+//Users factory - handles user roles
+.factory('Users', ['$http', function($http){
+
+  var getUsers = function(){
+    return $http({
+      method: 'GET',
+      url: '/users'
+    })
+    .then(function(res){
+      console.log('SERVICES', res);
+      return res.data;
+    })
+  };
+
+  var updateUser = function(){
+    return $http({
+      method: 'PUT',
+      url: '/users'
+    })
+  }
+  return {
+    getUsers: getUsers,
+    updateUser: updateUser
+  }
+}])

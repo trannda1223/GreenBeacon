@@ -43,6 +43,13 @@ module.exports = {
     }
   },
 
+  getUsers: function(req, res) {
+    User.findAll()
+    .then(function(users) {
+      res.json(users);
+    });
+  },
+
   terminateSession: function(req, res) {
     req.session.destroy();
     res.redirect('/#/signin');

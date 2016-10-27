@@ -1,6 +1,6 @@
 var passport = require('passport');
 var helpers = require('./routehelpers');
-var sockets = require('./sockets')
+
 module.exports.router = function(app) {
 
   app.get('/auth/github', passport.authenticate('github', { scope: [ 'user:email' ] }), function(req, res) {
@@ -27,6 +27,9 @@ module.exports.router = function(app) {
 
   app.put('/unsolved', helpers.isLoggedIn, helpers.tagUnSolved);
 
-  app.get('/signout', helpers.isLoggedIn, helpers.terminateSession)
+  app.get('/users', helpers.isLoggedIn, helpers.getUsers);
+    //will need to change first function to isAdmin - and write isAdmin function in helpers
+
+  app.get('/signout', helpers.isLoggedIn, helpers.terminateSession);
 
 };
