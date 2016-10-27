@@ -28,6 +28,7 @@ angular.module('app.services', ['btford.socket-io'])
       data: ticket
     })
     .then(function () {
+      console.log('emmitting addTicket event');
       Socket.emit('addTicket');
     });
   };
@@ -40,6 +41,7 @@ angular.module('app.services', ['btford.socket-io'])
       data: ticket
     })
     .then(function () {
+      console.log('emitting claimed ticket event');
       Socket.emit('claimTicket');
     });;
   };
@@ -52,6 +54,7 @@ angular.module('app.services', ['btford.socket-io'])
       data: data
     })
     .then(function () {
+      console.log('emitting erase claim event');
       Socket.emit('eraseClaim');
     });;
   };
@@ -64,6 +67,7 @@ angular.module('app.services', ['btford.socket-io'])
       data: ticket
     })
     .then(function () {
+      console.log('emitting solve ticket event');
       Socket.emit('solveTicket');
     });;
   };
@@ -76,6 +80,8 @@ angular.module('app.services', ['btford.socket-io'])
       data: ticket
     })
     .then(function () {
+      console.log('emitting unsolve ticket event');
+
       Socket.emit('unsolveTicket');
     });;
   };
