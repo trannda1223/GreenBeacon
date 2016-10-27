@@ -5,6 +5,8 @@ var Sequelize = require('sequelize');
 var User = require('./db/schema').User;
 var Ticket = require('./db/schema').Ticket;
 var Claim = require('./db/schema').Claim;
+var TicketLevel = require('./db/schema').TicketLevel;
+
 
 // establish database connection for querying
 var db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/beacon', {
@@ -49,13 +51,30 @@ module.exports = {
 
   // query for all tickets and claims that exist in DB and send to client
   getTickets: function(req, res) {
-    Ticket.findAll({ include: [User] })
-      .then(function(tickets) {
-        Claim.findAll({ include: [User, Ticket] })
-          .then(function(claims) {
-            res.send({ tickets: tickets, claims: claims, userID: req.session.userID });
+    
+    User.find({ where: { username: req.user.username } }).then(function(user){
+
+      TicketLevel.find({where: { authorizationlevel: user.authorizationlevel }}).then(function(authlevel) {
+
+        Ticket.findAll({ include: [User], where: {$or: [{unsolvedCount: {lte: authlevel.threshold} }, {userId: user.id }]}  })
+          .then(function(tickets) {
+            Claim.findAll({ include: [User, Ticket] })
+              .then(function(claims) {
+                res.send({ tickets: tickets, claims: claims, userID: req.session.userID });
+              });
           });
-      });
+      })
+          
+
+
+      })
+
+
+
+
+
+
+
   },
 
   // create a new ticket instance and add it to the tickets table
@@ -125,5 +144,7 @@ module.exports = {
   // seedDB: function(){
   //   TicketLevel.create({})
   // }
+
+
 
 };

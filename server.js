@@ -2,17 +2,17 @@
 var express = require('express');
 var app = express();
 
-//socket.io
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-
 // Middleware
 var parser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github2').Strategy;
 var routes = require('./routes');
-var config = require('./example_config');
+//this will only load the config file if on development server
+//this is so we don't receive an error on heroku
+if(process.env.NODE_ENV !== 'production') {
+  var config = require('./config.js');
+}
 
 passport.serializeUser(function(id, done) {
   done(null, id);
@@ -42,6 +42,8 @@ app.use(session({
   cookie: {maxAge: 600000*3} //30 mins
 }));
 
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -50,6 +52,14 @@ app.use(parser.json());
 
 routes.router(app);
 
+
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function(){
+  console.log('listening on port' + app.get('port'));
+})
+
+var io = require('socket.io')(server);
 
 //establish socket connection
 io.on('connection', function(socket){
@@ -81,10 +91,4 @@ io.on('connection', function(socket){
   })
 });
 
-//start server
-http.listen(3000, function() {
-  console.log('listening on port: ' + 3000);
-});
-
-
-module.exports.app = app;
+module.exports.app = server;
