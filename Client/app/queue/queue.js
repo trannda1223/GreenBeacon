@@ -145,8 +145,8 @@ angular.module('app.queue', [])
 
   $scope.getCoordinates = function(event) {
     console.log(event);
-    var x = event.clientX;
-    var y = event.clientY;
+    var x = event.offsetX;
+    var y = event.offsetY;
     var coords = "X coords: " + x + ", Y coords: " + y;
     console.log(coords);
     $scope.ticket.x = x;
