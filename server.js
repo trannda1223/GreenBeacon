@@ -57,15 +57,16 @@ app.set('port', process.env.PORT || 3000);
 
 var server = app.listen(app.get('port'), function(){
   console.log('listening on port' + app.get('port'));
-})
+});
 
+//socket.io
 var io = require('socket.io')(server);
 
 //establish socket connection
 io.on('connection', function(socket){
   console.log('a user connected!');
 
-  //socket event listeners / broadcasters
+  //socket event listeners / emitters
   socket.on('addTicket', function() {
     io.emit('ticketChange');
     console.log('ticketAdded');
@@ -86,9 +87,10 @@ io.on('connection', function(socket){
     io.emit('ticketChange');
     console.log('ticketUnsolved');
   });
+
   socket.on('disconnect', function(){
     console.log('a user disconnected!');
   })
 });
 
-module.exports.app = server;
+module.exports = server;
