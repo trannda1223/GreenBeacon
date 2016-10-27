@@ -30,11 +30,13 @@ body {
 
 .ticketNav {
 	color: white;
+
 	
 }
 
 .lobby {
 	display: inline-block;
+	margin-right: -10px;
 
 }
 

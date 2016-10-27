@@ -3,16 +3,22 @@
 angular.module('app.queue', [])
 
 .controller('QueueController', ['$scope', 'Tickets', 'Auth', function($scope, Tickets, Auth){
-
+  $scope.view;
   $scope.data = {};
   var SVGpulse;
   var SVGdot;
 
   Socket.on('ticketChange', function() {
-    initializeQueue();
+    if ($scope.view === 'lobby') {
+      $scope.initializeQueue();   
+    } else if($scope.view === 'user') {
+      $scope.showUserTickets();
+    }
+    
   });
 
-  var initializeQueue = function() {
+  $scope.initializeQueue = function() {
+    $scope.view = 'lobby';
     //retrieve tickets from database
     Tickets.getTickets()
       .then(function(results){
@@ -66,6 +72,7 @@ angular.module('app.queue', [])
   }
 
   $scope.showUserTickets = function() {
+    $scope.view = 'user';
     //retrieve tickets from database
     Tickets.getUserTickets()
       .then(function(results){
@@ -242,6 +249,6 @@ angular.module('app.queue', [])
     }
   }
 
-  initializeQueue();
+  $scope.initializeQueue();
 
 }]);

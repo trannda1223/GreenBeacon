@@ -12,8 +12,8 @@
 	<div id="queueContainer">
 		<div class="list-group">
 		  <div class='ticketNav'> 
-		  	<div class='lobby' ng-click="filterTickets()">Lobby</div>
-		  	<div class='user' ng-click="showUserTickets()">User</div>
+		  	<button type='btn' class='lobby btn btn-default' ng-click="initializeQueue()">Lobby</button>
+		  	<button type='btn' class='user btn btn-default' ng-click="showUserTickets()">User</button>
 		  </div>
 		  <div  class="ticket" ng-repeat="ticket in data.tickets | filter: {solved: false} | orderBy:'id' ">
 		    <!-- Renders each ticket to the queue -->
