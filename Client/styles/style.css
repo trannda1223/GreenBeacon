@@ -268,8 +268,9 @@ footer {
   color: white;
   text-align: center;
   display: block;
-  height: 15vh;
+  height: 50px;
   width: 100%;
+  border: 10px;
 
 }
 
@@ -282,7 +283,7 @@ footer {
 .welcomeMessage {
   color: white;
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 6px;
 
 }
 
@@ -297,8 +298,8 @@ footer {
 .signout, .admin {
   color: white;
   float: right;
-  margin-top: 10px;
   cursor: pointer;
+  margin-top: 6px;
 
 }
 
