@@ -98,6 +98,16 @@ angular.module('app.services', [])
     });;
   };
 
+  //Sends GET request to the server in order to get current ticket thresholds
+  var getThresholds = function() {
+    return $http ({
+      method: 'GET',
+      url: '/ticketLevel'
+    })
+    .then(function(data){
+      return data;
+    });
+  };
   //Sends PUT request to the server in order to reset the thresholds for ticket
   //importance
   var updateThresholds = function(ticket) {
@@ -105,11 +115,8 @@ angular.module('app.services', [])
       method: 'PUT',
       url: '/ticketLevel',
       data: ticket
-    })
-    .then(function(data){
-      console.log(data);
-    })
-  }
+    });
+  };
 
   return {
     getTickets: getTickets,
@@ -119,6 +126,7 @@ angular.module('app.services', [])
     solveTicket: solveTicket,
     unsolveTicket: unsolveTicket,
     getUserTickets: getUserTickets,
+    getThresholds: getThresholds,
     updateThresholds: updateThresholds
 
   }
