@@ -25,7 +25,9 @@ angular.module('app.admin', [])
 
   $scope.updateThresholds = function(){
     $scope.ticket.authlevel = Number($scope.ticket.authlevel);
+    console.log($scope.ticket);
     Tickets.updateThresholds($scope.ticket);
+  };
 
   $scope.redirect = function() {
     $location.path('/#/tickets');

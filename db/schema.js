@@ -36,7 +36,7 @@ var User = db.define('user', {
   }
 });
 
-  //Creates table for Ticket Importance Levels
+//Creates table for Ticket Importance Levels
 var TicketLevel = db.define('ticketlevel', {
   authorizationlevel: {
     type: Sequelize.INTEGER,
