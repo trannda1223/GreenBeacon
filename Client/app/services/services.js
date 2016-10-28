@@ -1,5 +1,3 @@
-
-
 angular.module('app.services', [])
 
 //Tickets factory - handles all tickets manipulations
@@ -18,6 +16,20 @@ angular.module('app.services', [])
       }
       return resp;
     });
+  };
+
+  //Sends GET request to the server in order to render users tickets
+
+  var getUserTickets = function() {
+    return $http({
+      method: 'GET',
+      url: '/userTickets'
+    }).then(function (resp) {
+      if (resp.data === 'failed') {
+        $window.location = '/#/signin';
+      }
+      return resp;
+    })
   };
 
   //Sends POST request to the server in order to post a new ticket
@@ -106,7 +118,9 @@ angular.module('app.services', [])
     eraseClaim: eraseClaim,
     solveTicket: solveTicket,
     unsolveTicket: unsolveTicket,
+    getUserTickets: getUserTickets,
     updateThresholds: updateThresholds
+
   }
 }])
 

@@ -56,6 +56,23 @@ input[type=number] {
   width: 250px;
 }
 
+.ticketNav {
+	color: white;
+
+	
+}
+
+.lobby {
+	display: inline-block;
+	margin-right: -10px;
+
+}
+
+.user {
+	display: inline-block;
+
+}
+
 .list-group {
 	height: 575px;
 	overflow: auto;
@@ -76,6 +93,7 @@ input[type=number] {
 .ticket {
 	padding-bottom: 2px;
 }
+
 
 .list-group-item, .form-control, .input-text {
 	background-color: #E8E9F9;
@@ -113,6 +131,19 @@ input[type=number] {
 .ticket-claimed, .ticket-claimed:hover {
 	background-color: grey;
 }
+
+.studentTicket {
+	background-color: #48D962;
+}
+
+.fellowTicket {
+	background-color: #FFFFA4;
+}
+
+.instructorTicket {
+	background-color: #E45454;
+}
+
 
 #queueContainer, #map {
 	display: inline-block
@@ -152,8 +183,8 @@ input[type=number] {
 }
 
 .pulse {
-	width: 10px;
-	height: 10px;
+	width: 13px;
+	height: 13px;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
 	border-radius: 30px;
@@ -175,8 +206,6 @@ input[type=number] {
 	-moz-animation-iteration-count: infinite;
 	animation-iteration-count: infinite;
 	position: absolute;
-	top: -15px;
-	left: -15px;
 	z-index: 1;
 	opacity: 0;
 }
@@ -284,3 +313,10 @@ footer {
 .signinbtn:hover, .signout:hover {
   background-color: #c7c8d6;
 }
+
+.seanissoocool {
+	background-color: red;
+	
+
+}
+
