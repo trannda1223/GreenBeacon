@@ -28,6 +28,10 @@ input{
   font-size: 40px
 }
 
+.hidden {
+	display: none;
+}
+
 #support {
 	padding-bottom: 10px;
   font-size: 23px

@@ -45,7 +45,14 @@ module.exports = {
 
   //validates whether the user is an administrator
   isAdmin: function(req, res, next) {
-
+    User.find({where: {username: req.session.passport.user.username}})
+    .then(function(user){
+      if(user.isadmin === true){
+      next();
+    } else {
+      console.log('not an administrator');
+    }
+  });
   },
 
   getUsers: function(req, res) {
@@ -53,6 +60,17 @@ module.exports = {
     .then(function(users) {
       res.json(users);
     });
+  },
+
+  updateUser: function(req, res) {
+    console.log(req.body);
+    User.find({where: {username: req.body.username}})
+    .then(function(user){
+      user.update({ authorizationlevel: req.body.authorizationlevel, isadmin: req.body.isadmin})
+    })
+    .then(function(user){
+      res.json(user);
+    })
   },
 
   terminateSession: function(req, res) {

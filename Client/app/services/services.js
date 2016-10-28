@@ -123,14 +123,15 @@ angular.module('app.services', [])
     })
   };
 
-  var updateUser = function(){
+  var updateUser = function(user){
     return $http({
       method: 'PUT',
-      url: '/users'
+      url: '/users',
+      data: user
     })
   }
   return {
     getUsers: getUsers,
     updateUser: updateUser
   }
-}])
+}]);

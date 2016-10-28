@@ -133,11 +133,13 @@ angular.module('app.queue', [])
     Auth.signout();
   }
 
-  $scope.admin = function(){
+  $scope.admin = function() {
     $location.path('/admin');
   }
 
   $scope.claimTicket = function (ticket) {
+
+    ticket.disableTicket = true;
 
     //once 'claim' has been clicked'
       //pass the claimed ticket to claim Ticket service
