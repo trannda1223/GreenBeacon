@@ -151,7 +151,44 @@ angular.module('app.queue', [])
     console.log(coords);
     $scope.ticket.x = x;
     $scope.ticket.y = y; 
-   
+
+
+    if ($scope.ticket.x <=190 && $scope.ticket.x >= 0 && $scope.ticket.y <= 123 && $scope.ticket.y >=0) {
+      $scope.ticket.location = 'Lecture Hall';
+    };
+
+    if ($scope.ticket.x <=190 && $scope.ticket.x >= 0 && $scope.ticket.y <= 239 && $scope.ticket.y >=124) {
+      $scope.ticket.location = 'Pairing Stations';
+    };
+    if ($scope.ticket.x <=190 && $scope.ticket.x >= 25 && $scope.ticket.y <= 320 && $scope.ticket.y >=240) {
+      $scope.ticket.location = 'Kitchen';
+    };
+    if ($scope.ticket.x <=370 && $scope.ticket.x >= 250 && $scope.ticket.y <= 325 && $scope.ticket.y >=230) {
+      $scope.ticket.location = 'Couch';
+    };
+    if ($scope.ticket.x <=370 && $scope.ticket.x >= 270 && $scope.ticket.y <= 610 && $scope.ticket.y >=370) {
+      $scope.ticket.location = 'Senior Zone';
+    };
+    if ($scope.ticket.x <=160 && $scope.ticket.x >= 25 && $scope.ticket.y <= 550 && $scope.ticket.y >=470) {
+      $scope.ticket.location = 'The Hopper';
+    };
+    if ($scope.ticket.x <=160 && $scope.ticket.x >= 25 && $scope.ticket.y <= 655 && $scope.ticket.y >=590) {
+      $scope.ticket.location = 'The Dijkstra';
+    };
+    if ($scope.ticket.x <=370 && $scope.ticket.x >= 290 && $scope.ticket.y <= 760 && $scope.ticket.y >=650) {
+      $scope.ticket.location = 'The Ada';
+    };
+    if ($scope.ticket.x <=260 && $scope.ticket.x >= 25 && $scope.ticket.y <= 760 && $scope.ticket.y >=656) {
+     $scope.ticket.location = 'Entrance Hall';
+    }
+    if ($scope.ticket.x <=160 && $scope.ticket.x >= 25 && $scope.ticket.y <= 470 && $scope.ticket.y >=320) {
+     $scope.ticket.location = '';
+    };
+    if ($scope.ticket.x <= 400 && $scope.ticket.x >= 190 && $scope.ticket.y <= 239 && $scope.ticket.y >=50) {
+     $scope.ticket.location = '';
+    };
+
+
 }
 
 
@@ -167,44 +204,6 @@ angular.module('app.queue', [])
   };
 
   $scope.ticket.color =  getRandomColor();
-
-
-  // if ($scope.ticket.location === 'Lecture Hall') {
-  //   $scope.ticket.x = Math.random() * 165 + 25;
-  //   $scope.ticket.y = Math.random() * 50 + 50;
-
-  // } else if ($scope.ticket.location === 'Pairing Station') {
-  //   $scope.ticket.x = Math.random() * 165 + 25;
-  //   $scope.ticket.y = Math.random() * 70 + 140;
-
-  // } else if ($scope.ticket.location === 'Kitchen') {
-  //   $scope.ticket.x = Math.random() * 165 + 25;
-  //   $scope.ticket.y = Math.random() * 80 + 240;
-
-  // } else if ($scope.ticket.location === 'Couch') {
-  //   $scope.ticket.x = Math.random() * 120 + 250;
-  //   $scope.ticket.y = Math.random() * 95 + 230;
-
-  // } else if ($scope.ticket.location === 'Senior Zone') {
-  //   $scope.ticket.x = Math.random() * 100 + 270;
-  //   $scope.ticket.y = Math.random() * 240 + 370;
-
-  // } else if ($scope.ticket.location === 'The Hopper') {
-  //   $scope.ticket.x = Math.random() * 135 + 25;
-  //   $scope.ticket.y = Math.random() * 80 + 470;
-
-  // } else if ($scope.ticket.location === 'The Dijkstra') {
-  //   $scope.ticket.x = Math.random() * 135 + 25;
-  //   $scope.ticket.y = Math.random() * 65 + 590;
-
-  // } else if ($scope.ticket.location === 'The Ada') {
-  //   $scope.ticket.x = Math.random() * 80 + 290;
-  //   $scope.ticket.y = Math.random() * 105 + 655;
-
-  // } else if ($scope.ticket.location === 'Entrance Hall') {
-  //   $scope.ticket.x = Math.random() * 235 + 25;
-  //   $scope.ticket.y = Math.random() * 70 + 690;
-  // }
 
   //retrieve new ticket from html form, pass to add Ticket function
 
@@ -280,6 +279,15 @@ angular.module('app.queue', [])
     }
   }
 
+  $scope.renew = function () { 
+    if ($scope.view === 'lobby') {
+      $scope.initializeQueue();   
+    } else if($scope.view === 'user') {
+      $scope.showUserTickets();
+    }
+
+  };
+ 
   $scope.initializeQueue();
 
 }]);
