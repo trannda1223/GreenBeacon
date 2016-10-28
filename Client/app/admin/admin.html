@@ -1,9 +1,12 @@
 <div ng-init='loadData()'>
-  <table>
+
+  <h1 align="center">Update User Roles</h1>
+
+  <table align="center">
     <tr>
-      <th>Name</th>
-      <th>Authorization Level</th>
-      <th>Is Administrator?</th>
+      <th><h2>Name</h2></th>
+      <th><h2>Authorization</h2></th>
+      <th><h2>Administrator</h2></th>
       <th></th>
     </tr>
     <tr>
@@ -12,11 +15,15 @@
           <option ng-repeat="user in users">{{user.displayname}}</option>
         </select>
       </td>
-      <td>{{selectedPerson.authorizationlevel}}
-        <input type='text' placeholder='update authorization' ng-model="selectedPerson.authorizationlevel"/>
+      <td>
+        <select ng-model="selectedPerson.authorizationlevel">
+          <option value='1'>Student</option>
+          <option value='2'>Fellow</option>
+          <option value='3'>Instructor</option>
+        </select>
       </td>
       <td>
-        <input type='checkbox' ng-checked="selectedPerson.isadmin" ng-model="selectedPerson.isadmin"/>
+        <input type='checkbox' ng-checked="selectedPerson.isadmin" ng-model="selectedPerson.isadmin"/> Y/N
       </td>
       <td>
         <input type='submit' ng-click="updateUser()"/>
@@ -26,8 +33,32 @@
 </div>
 
 
+  <h1 align="center">Update Ticket Thresholds</h1>
+
+
+  <table align="center">
+    <tr>
+      <th><h1>Auth Level</h1></th>
+      <th><h1>Threshold</h1></th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>
+        <select ng-model="ticket.authlevel">
+          <option value='1'>Student</option>
+          <option value='2'>Fellow</option>
+          <option value='3'>Instructor</option>
+        </select>
+      </td>
+      <td>
+        <input type="number" min="1" max="5" ng-model="ticket.threshold"/>
+      </td>
+      <td>
+        <input type='submit' ng-click="updateThresholds()"/>
+      </td>
+    </tr>
+  </table>
 
 
 
-<!--DEV PURPOSES
-  create ticket and create claim - update DB schemas  -->
+  <!--FOR DEV'S EYES ONLY - update DB schemas  -->

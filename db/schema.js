@@ -35,6 +35,7 @@ var User = db.define('user', {
     defaultValue: false
   }
 });
+
   //Creates table for Ticket Importance Levels
 var TicketLevel = db.define('ticketlevel', {
   authorizationlevel: {
@@ -43,6 +44,7 @@ var TicketLevel = db.define('ticketlevel', {
   },
   threshold: Sequelize.INTEGER
 });
+
 //Creates table of tickets
 var Ticket = db.define('ticket', {
   id: {
@@ -134,10 +136,6 @@ var initializeTicketLevels = function() {
       console.log('Ticket Levels initialized');
     });
   });
-
-
-
-
 }
 
 module.exports = {

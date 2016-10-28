@@ -27,6 +27,8 @@ module.exports.router = function(app) {
 
   app.put('/unsolved', helpers.isLoggedIn, helpers.tagUnSolved);
 
+  app.put('/ticketLevel', helpers.isLoggedIn, helpers.isAdmin, helpers.updateThresholds);
+
   app.get('/users', helpers.isLoggedIn, helpers.getUsers);
 
   app.put('/users', helpers.isLoggedIn, helpers.updateUser);
