@@ -3,12 +3,13 @@
 angular.module('app.queue', [])
 
 .controller('QueueController', ['$scope', 'Tickets', 'Auth', '$location', function($scope, Tickets, Auth, $location){
-
+  $scope.isadmin = false;
   $scope.data = {};
   var SVGpulse;
   var SVGdot;
 
   Socket.on('ticketChange', function() {
+    console.log('client receives ticket change event');
     initializeQueue();
   });
 
@@ -16,6 +17,8 @@ angular.module('app.queue', [])
     //retrieve tickets from database
     Tickets.getTickets()
       .then(function(results){
+        console.log(results, 'Tickets.getTickets inside initializeQueue called')
+        $scope.isadmin = results.data.isadmin;
 
         SVGpulse = document.getElementsByClassName('pulse');
         SVGdot = document.getElementsByClassName('dot');
@@ -41,18 +44,22 @@ angular.module('app.queue', [])
           //if the helpee (user) id of the claim matches the current session user
           if (claim.helpeeId === results.data.userID) {
             //alert the helpee and include the name of the user who claimed the ticket
+            console.log(claim, 'inside for loop before alert');
             alert(claim.user.displayname + ' is on their way!');
 
             for (var ticket of $scope.data.tickets) {
               //if the ticket's claimed attribute is true and the user of the claimed ticket matches the current session user
                 //set the ticket's preSolved state to true
+                console.log(ticket, 'presolved stuff');
               if (ticket.claimed && ticket.userId === results.data.userID) {
                 ticket.preSolved = true;
               }
             }
             //Delete the claim from the database
+            console.log(claim, 'about to erase this claim');
             Tickets.eraseClaim(claim)
             .then(function () {
+              console.log('erased claim', claim);
               //wipe out client-side claims object
                $scope.data.claims = {};
             })
@@ -121,7 +128,6 @@ angular.module('app.queue', [])
   Tickets.addTicket($scope.ticket)
     .then(function () {
       $scope.ticket = {};
-      console.log('removed');
     })
     .catch(function (err) {
       console.log(err);
@@ -144,7 +150,6 @@ angular.module('app.queue', [])
       //pass the claimed ticket to claim Ticket service
     Tickets.claimTicket(ticket)
       .then(function () {
-        console.log('removed');
       })
       .catch(function (err) {
         console.log(err);
@@ -157,7 +162,6 @@ angular.module('app.queue', [])
     //if 'Solved' has been clicked on the ticket, pass that ticket into solveTicket service
      Tickets.solveTicket(ticket)
        .then(function () {
-         console.log('removed');
        })
        .catch(function (err) {
          console.log(err);
@@ -170,7 +174,6 @@ angular.module('app.queue', [])
     //if 'Not Solved' is clicked, pass the ticket to unsolveTicket service
      Tickets.unsolveTicket(ticket)
       .then(function () {
-        console.log('removed');
       })
       .catch(function (err) {
         console.log(err);
