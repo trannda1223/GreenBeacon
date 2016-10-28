@@ -9,7 +9,7 @@
     <tr>
       <td>
         <select ng-change="updateTable()" ng-model="person">
-          <option ng-repeat="user in users">{{user.displayname}}</option>
+          <option ng-repeat="user in users | orderBy: 'displayname'">{{user.displayname}}</option>
         </select>
       </td>
       <td>{{selectedPerson.authorizationlevel}}
