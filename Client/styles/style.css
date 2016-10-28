@@ -59,7 +59,7 @@ input[type=number] {
 .ticketNav {
 	color: white;
 
-	
+
 }
 
 .lobby {
@@ -314,7 +314,7 @@ footer {
 
 .seanissoocool {
 	background-color: red;
-	
+
 
 }
 
@@ -324,7 +324,7 @@ footer {
   overflow: auto;
 }*/
 
-/*.logo {
+.logo {
   width:180px;
   height:180px;
   margin: 0 auto;
@@ -333,14 +333,13 @@ footer {
 
 }
 
-.logo .logoimg {
+.logo {
   max-width:100%;
   max-height:100%;
   margin:auto;
   display:block;
-}*/
+}
 
 /*.headerq {
   display: block;
 }*/
-

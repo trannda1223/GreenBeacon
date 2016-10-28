@@ -12,19 +12,32 @@ angular.module('app.queue', [])
 
   Socket.on('ticketChange', function() {
     if ($scope.view === 'lobby') {
-      $scope.initializeQueue();   
+      $scope.initializeQueue();
     } else if($scope.view === 'user') {
       $scope.showUserTickets();
     }
-    
+
   });
+
+
+  Tickets.getThresholds()
+    .then(function(levels) {
+      var setLevels = levels.data;
+
+      $scope.student = setLevels.filter(function(level){
+        return level.authorizationlevel === 1;
+      })[0];
+
+      $scope.fellow = setLevels.filter(function(level){
+        return level.authorizationlevel === 2;
+      })[0];
+    })
 
   $scope.initializeQueue = function() {
     $scope.view = 'lobby';
     //retrieve tickets from database
     Tickets.getTickets()
       .then(function(results){
-        console.log(results, 'Tickets.getTickets inside initializeQueue called')
         $scope.isadmin = results.data.isadmin;
         $scope.userID = results.data.userID;
         $scope.name = results.data.displayname.split(" ")[0];
@@ -40,7 +53,7 @@ angular.module('app.queue', [])
         };
         $scope.setUserRole();
 
-        
+
         SVGpulse = document.getElementsByClassName('pulse');
         SVGdot = document.getElementsByClassName('dot');
 
@@ -94,7 +107,7 @@ angular.module('app.queue', [])
     //retrieve tickets from database
     Tickets.getUserTickets()
       .then(function(results){
-        
+
         SVGpulse = document.getElementsByClassName('pulse');
         SVGdot = document.getElementsByClassName('dot');
 
@@ -156,7 +169,7 @@ angular.module('app.queue', [])
     var coords = "X coords: " + x + ", Y coords: " + y;
     console.log(coords);
     $scope.ticket.x = x;
-    $scope.ticket.y = y; 
+    $scope.ticket.y = y;
 
 
     if ($scope.ticket.x <=190 && $scope.ticket.x >= 0 && $scope.ticket.y <= 123 && $scope.ticket.y >=0) {
@@ -285,15 +298,15 @@ angular.module('app.queue', [])
     }
   }
 
-  $scope.renew = function () { 
+  $scope.renew = function () {
     if ($scope.view === 'lobby') {
-      $scope.initializeQueue();   
+      $scope.initializeQueue();
     } else if($scope.view === 'user') {
       $scope.showUserTickets();
     }
 
   };
- 
+
   $scope.initializeQueue();
 
 }]);
