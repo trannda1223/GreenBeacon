@@ -159,7 +159,6 @@ input[type=number] {
 	float: right;
 	margin-top: -30px;
 	position: absolute;
-	z-index: 99;
 }
 
 
@@ -265,54 +264,52 @@ footer {
 	width: 50px;
 }
 
-
-
-.clearfix {
-  overflow: auto;
-}
-
-.logo {
-  width:180px;
-  height:180px;
-  margin: 0 auto;
-  padding-left: 5px;
-  margin-bottom: 30px;
+.headerbar {
+  color: white;
+  text-align: center;
+  display: block;
+  height: 50px;
+  width: 100%;
+  border: 10px;
 
 }
 
-.logo .logoimg {
-  max-width:100%;
-  max-height:100%;
-  margin:auto;
-  display:block;
-}
-
-.headerq {
-  display: inline;
-  clear: both;
-}
-
-.signout, .admin {
-  float: right;
-  margin-top: 40px;
-  margin-right: 20px;
-
-}
-
-.logoimgq {
-  width: 80px;
-  height: 80px;
-  margin-top: 20px;
-  margin-left: 20px;
+.logoimg {
+  height: 100%;
+  margin: auto;
   float: left;
 }
+
+.welcomeMessage {
+  color: white;
+  display: inline-block;
+  margin-top: 6px;
+
+}
+
+.role {
+  color: green;
+  font-weight: bolder;
+}
+
+
+
+
+.signout, .admin {
+  color: white;
+  float: right;
+  cursor: pointer;
+  margin-top: 6px;
+
+}
+
 .signinbtn {
   background-color: #E8E9F9;
   margin-left: 11px
 }
 
-.signinbtn:hover, .signout:hover {
-  background-color: #c7c8d6;
+.signinbtn:hover, .signout:hover, .admin:hover {
+  background-color: #424242;
 }
 
 .seanissoocool {
@@ -320,3 +317,26 @@ footer {
 	
 
 }
+
+
+/*extra stuff I don't think we need (but just in case):*/
+/*.clearfix {
+  overflow: auto;
+}*/
+
+/*.logo {
+  width:180px;
+  height:180px;
+  margin: 0 auto;
+  padding-left: 5px;
+  margin-bottom: 30px;
+}
+.logo .logoimg {
+  max-width:100%;
+  max-height:100%;
+  margin:auto;
+  display:block;
+}*/
+
+/*.headerq {
+  display: block;
