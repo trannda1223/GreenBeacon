@@ -19,7 +19,7 @@ angular.module('app.queue', [])
       .then(function(results){
         console.log(results, 'Tickets.getTickets inside initializeQueue called')
         $scope.isadmin = results.data.isadmin;
-
+        
         SVGpulse = document.getElementsByClassName('pulse');
         SVGdot = document.getElementsByClassName('dot');
 
@@ -29,6 +29,60 @@ angular.module('app.queue', [])
         for (var ticket of $scope.data.tickets) {
           //if the userId of the ticket matches the current session user
           if (ticket.userId === results.data.userID) {
+
+            //add and set isMine attribute to true
+            ticket.ismine = true;
+          } else {
+            ticket.ismine = false;
+          }
+        }
+
+        //set claims to the scope
+        $scope.data.claims = results.data.claims;
+
+        //iterate through all claims
+        for (var claim of $scope.data.claims) {
+          //if the helpee (user) id of the claim matches the current session user
+          if (claim.helpeeId === results.data.userID) {
+            //alert the helpee and include the name of the user who claimed the ticket
+            alert(claim.user.displayname + ' is on their way!');
+
+            for (var ticket of $scope.data.tickets) {
+              //if the ticket's claimed attribute is true and the user of the claimed ticket matches the current session user
+                //set the ticket's preSolved state to true
+              if (ticket.claimed && ticket.userId === results.data.userID) {
+                ticket.preSolved = true;
+              }
+            }
+            //Delete the claim from the database
+            Tickets.eraseClaim(claim)
+            .then(function () {
+              //wipe out client-side claims object
+               $scope.data.claims = {};
+            })
+          }
+        }
+      })
+      .catch(function(error){
+        console.error(error);
+      })
+  }
+
+  $scope.showUserTickets = function() {
+    //retrieve tickets from database
+    Tickets.getUserTickets()
+      .then(function(results){
+        
+        SVGpulse = document.getElementsByClassName('pulse');
+        SVGdot = document.getElementsByClassName('dot');
+
+        //add tickets to the scope
+        $scope.data.tickets = results.data.tickets;
+        //iterate through all tickets
+        for (var ticket of $scope.data.tickets) {
+          //if the userId of the ticket matches the current session user
+          if (ticket.userId === results.data.userID) {
+
             //add and set isMine attribute to true
             ticket.ismine = true;
           } else {
@@ -74,7 +128,6 @@ angular.module('app.queue', [])
   $scope.ticket = {};
 
   $scope.addTicket = function () {
-
   //assign random color for each ticket's dot
   function getRandomColor() {
     var letters = '0123456789ABCDEF'.split(''),
@@ -125,6 +178,7 @@ angular.module('app.queue', [])
   }
 
   //retrieve new ticket from html form, pass to add Ticket function
+
   Tickets.addTicket($scope.ticket)
     .then(function () {
       $scope.ticket = {};

@@ -20,6 +20,20 @@ angular.module('app.services', [])
     });
   };
 
+  //Sends GET request to the server in order to render users tickets
+
+  var getUserTickets = function() {
+    return $http({
+      method: 'GET',
+      url: '/userTickets'
+    }).then(function (resp) {
+      if (resp.data === 'failed') {
+        $window.location = '/#/signin';
+      }
+      return resp;
+    })
+  };
+
   //Sends POST request to the server in order to post a new ticket
   var addTicket = function (ticket) {
     return $http({
@@ -92,7 +106,8 @@ angular.module('app.services', [])
     claimTicket: claimTicket,
     eraseClaim: eraseClaim,
     solveTicket: solveTicket,
-    unsolveTicket: unsolveTicket
+    unsolveTicket: unsolveTicket,
+    getUserTickets: getUserTickets
   }
 }])
 
