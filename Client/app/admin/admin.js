@@ -1,25 +1,32 @@
 angular.module('app.admin', [])
 
-.controller('AdminController', ['Users', '$scope', '$location', function(Users, $scope, $location){
+.controller('AdminController', ['Users', '$scope', 'Tickets', '$location', function(Users, $scope, Tickets, $location){
 
   $scope.loadData = function(){
     Users.getUsers()
     .then(function(result){
       $scope.users = result;
-      console.log(result[0], 'result(0)');
     });
   };
 
   $scope.updateTable = function(){
-    $scope.selectedPerson = $scope.users.filter(function(user){return user.displayname === $scope.person })[0];
-    console.log('hope it worked', $scope.selectedPerson);
+    //pull user data from users array (returned from DB) by filtering
+      //set selectedPerson model equal to the user that matches displayname in the menu
+    $scope.selectedPerson = $scope.users
+    .filter(function(user){
+      return user.displayname === $scope.person;
+     })[0];
   };
 
   $scope.updateUser = function(){
-
     $scope.selectedPerson.authorizationlevel = Number($scope.selectedPerson.authorizationlevel);
-    console.log($scope.selectedPerson, 'PERSON INSIDE UPDATE FUNCTION');
     Users.updateUser($scope.selectedPerson);
+  };
+
+  $scope.updateThresholds = function(){
+    $scope.ticket.authlevel = Number($scope.ticket.authlevel);
+    console.log($scope.ticket);
+    Tickets.updateThresholds($scope.ticket);
   };
 
   $scope.redirect = function() {

@@ -1,5 +1,3 @@
-
-
 angular.module('app.services', [])
 
 //Tickets factory - handles all tickets manipulations
@@ -100,6 +98,19 @@ angular.module('app.services', [])
     });;
   };
 
+  //Sends PUT request to the server in order to reset the thresholds for ticket
+  //importance
+  var updateThresholds = function(ticket) {
+    return $http({
+      method: 'PUT',
+      url: '/ticketLevel',
+      data: ticket
+    })
+    .then(function(data){
+      console.log(data);
+    })
+  }
+
   return {
     getTickets: getTickets,
     addTicket: addTicket,
@@ -107,7 +118,9 @@ angular.module('app.services', [])
     eraseClaim: eraseClaim,
     solveTicket: solveTicket,
     unsolveTicket: unsolveTicket,
-    getUserTickets: getUserTickets
+    getUserTickets: getUserTickets,
+    updateThresholds: updateThresholds
+
   }
 }])
 
