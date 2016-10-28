@@ -35,4 +35,5 @@ module.exports.router = function(app) {
 
   app.get('/signout', helpers.isLoggedIn, helpers.terminateSession);
 
+  app.get('/userTickets', helpers.isLoggedIn, helpers.getUserTickets);
 };

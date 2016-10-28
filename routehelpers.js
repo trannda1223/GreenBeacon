@@ -94,9 +94,25 @@ module.exports = {
           });
       })
 
-
-
       })
+
+  },
+
+  // query for tickets for currently signed in user
+
+  getUserTickets: function(req, res) {
+    // console.log(req);
+    
+    User.find({ where: { username: req.user.username } }).then(function(user){
+      Ticket.findAll({ include: [User], where: {userId: user.id }  })
+        .then(function(tickets) {
+          Claim.findAll({ include: [User, Ticket] })
+            .then(function(claims) {
+              res.send({ tickets: tickets, claims: claims, userID: req.session.userID });
+            });
+        });
+    })
+
   },
 
   // create a new ticket instance and add it to the tickets table
