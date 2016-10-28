@@ -14,36 +14,8 @@ body {
   font-size: 54px
 }
 
-h1 {
-	margin-top: 4%;
-	margin-bottom: 0;
-}
-
-table {
-	margin-top: 2.5%;
-}
-
-tr, td{
-	padding: 50px;
-	border: 1px solid white;
-	color: gray;
-}
-
-th {
-	padding: 15px;
-	border: 1px solid white;
-}
-
-input{
-	margin: 10px;
-}
-
-input[type=number] {
-	width: 2em;
-}
-
-.hidden {
-	display: none;
+ h2 {
+  font-size: 40px
 }
 
 #support {
@@ -64,7 +36,7 @@ input[type=number] {
 
 .lobby {
 	display: inline-block;
-	margin-right: -10px;
+	margin-right: 
 
 }
 
@@ -121,7 +93,7 @@ input[type=number] {
 
 .btn {
 	color: #613DC1;
-	/*border-radius:0;*/
+
 }
 
 .btn-1 {
@@ -157,24 +129,22 @@ input[type=number] {
 #big-container {
 	width: 950px;
 	margin: 0 auto;
-  margin-top: 20px
+  	margin-top: 20px
 }
 
 #map {
 	float: right;
 	margin-top: -30px;
 	position: absolute;
-
+	z-index: 99;
 }
-
-
 
 #signin {
 	width: 40%;
 	margin: 0 auto;
 	text-align:center;
 	padding-top: 50px;
-  margin-top: 80px;
+  	margin-top: 80px;
 }
 
 .hiddenDot, .hiddenPulse {
@@ -189,8 +159,8 @@ input[type=number] {
 }
 
 .pulse {
-	width: 13px;
-	height: 13px;
+	width: 10px;
+	height: 10px;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
 	border-radius: 30px;
@@ -272,59 +242,56 @@ footer {
 	width: 50px;
 }
 
-.headerbar {
-  color: white;
-  text-align: center;
-  display: block;
-  height: 50px;
-  width: 100%;
-  border: 10px;
 
+
+.clearfix {
+  overflow: auto;
+}
+
+.logo {
+  width:180px;
+  height:180px;
+  margin: 0 auto;
+  padding-left: 5px;
+  margin-bottom: 30px;
+
+}
+
+.logo .logoimg {
+  max-width:100%; 
+  max-height:100%;
+  margin:auto;
+  display:block;
+}
+
+.headerq {
+  display: inline;
+  clear: both;
+}
+
+.signout {
+  float: right;
+  margin-top: 40px;
+  margin-right: 20px;
+  
 }
 
 .logoimg {
-  height: 100%;
-  margin: auto;
+  width: 80px;
+  height: 80px;
+  margin-top: 20px;
+  margin-left: 20px;
   float: left;
 }
-
-.welcomeMessage {
-  color: white;
-  display: inline-block;
-  margin-top: 6px;
-
-}
-
-.role {
-  color: green;
-  font-weight: bolder;
-}
-
-
-
-
-.signout, .admin {
-  color: white;
-  float: right;
-  cursor: pointer;
-  margin-top: 6px;
-
-}
-
 .signinbtn {
   background-color: #E8E9F9;
   margin-left: 11px
 }
 
-.signinbtn:hover, .signout:hover, .admin:hover {
-  background-color: #424242;
+.signinbtn:hover, .signout:hover {
+  background-color: #c7c8d6;
 }
 
-.seanissoocool {
-	background-color: red;
-
-
-}
 
 .admintable {
   width: 100%;
@@ -380,3 +347,4 @@ footer {
   display: block;
 <<<<<<< HEAD
 }*/
+
