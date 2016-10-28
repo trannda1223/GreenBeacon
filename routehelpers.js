@@ -89,7 +89,7 @@ module.exports = {
           .then(function(tickets) {
             Claim.findAll({ include: [User, Ticket] })
               .then(function(claims) {
-                res.send({ tickets: tickets, claims: claims, userID: req.session.userID, isadmin: user.isadmin });
+                res.send({ tickets: tickets, claims: claims, userID: req.session.userID, isadmin: user.isadmin, displayname: user.displayname });
               });
           });
       })

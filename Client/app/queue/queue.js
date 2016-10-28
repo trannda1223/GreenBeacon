@@ -19,6 +19,8 @@ angular.module('app.queue', [])
       .then(function(results){
         console.log(results, 'Tickets.getTickets inside initializeQueue called')
         $scope.isadmin = results.data.isadmin;
+        $scope.userID = results.data.userID;
+        $scope.name = results.data.displayname.split(" ")[0];
 
         SVGpulse = document.getElementsByClassName('pulse');
         SVGdot = document.getElementsByClassName('dot');

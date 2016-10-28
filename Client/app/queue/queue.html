@@ -2,10 +2,14 @@
 <!-- Main page template -->
 <div class = 'headerq clearfix'>
 	<div class='logoq'>
-	    <img class='logoimgq' alt="Logo" src="/../../logo.png" /></div>
-			  <button type='button' ng-show="isadmin" class='admin btn btn-default' ng-click='admin()'>Admin</button>
-        <button type="button"  class="signout btn btn-default" ng-click="signout()">Sign out</button>
-    </div>
+	  <img class='logoimgq' alt="Logo" src="/../../logo.png" />
+  </div>
+  <span class="welcomeMessage" style="color: white; text-align: right; display: inline-block; margin: auto; padding: 0;">Welcome, {{name}}</span>
+	<button type='button' ng-show="isadmin" class='admin btn btn-default' ng-click='admin()'>Admin
+  </button>
+  <button type="button"  class="signout btn btn-default" ng-click="signout()">Sign out
+  </button>
+</div>
 
 <div id="big-container">
 
