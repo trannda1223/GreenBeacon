@@ -1,11 +1,17 @@
-
 <!-- Main page template -->
-<div class = 'headerq clearfix'>
-	<div class='logoq'>
-	    <img class='logoimgq' alt="Logo" src="/../../logo.png" /></div>
-			  <button type='button' ng-show="isadmin" class='admin btn btn-default' ng-click='admin()'>Admin</button>
-        <button type="button"  class="signout btn btn-default" ng-click="signout()">Sign out</button>
-    </div>
+<div class="headerbar">
+	<img class='logoimg' alt="Logo" src="/../../logo.png" />
+  <span class="welcomeMessage">Welcome, {{name}} 
+    <br>
+    <span class="role">
+      {{role}}
+    </span>
+  </span>
+	<a ng-show="isadmin" class='admin btn' ng-click='admin()'>Admin
+  </a>
+  <a class="signout btn" ng-click="signout()">Sign out
+  </a>
+</div>
 
 <div id="big-container">
 
@@ -16,25 +22,9 @@
 		  	<button type='btn' class='lobby btn btn-default' ng-click="initializeQueue()">Lobby</button>
 		  	<button type='btn' class='user btn btn-default' ng-click="showUserTickets()">User</button>
 		  </div>
-<<<<<<< HEAD
-		  <div  class="ticket" ng-repeat="ticket in data.tickets | filter: {solved: false} | orderBy:'id' ">
-		    <!-- Renders each ticket to the queue -->
-
-		    <a class="list-group-item list-group-item-action" 
-		    ng-class="{
-		    'ticket-claimed list-group-item list-group-item-action': ticket.claimed,
-		    'studentTicket list-group-item list-group-item-action' : (ticket.unsolvedCount <= 1), 
-		    'fellowTicket list-group-item list-group-item-action' : (ticket.unsolvedCount === 2),
-		    'instructorTicket list-group-item list-group-item-action' : (ticket.unsolvedCount > 2),
-		    'list-group-item list-group-item-action': !ticket.claimed
-		    }" 
-
-		    ng-mouseover = 'showDot(ticket.x, ticket.y)' ng-mouseleave = 'renew()' x = {{ticket.x}} y ={{ticket.y}}>
-=======
 		  <div  class="ticket" ng-repeat="ticket in data.tickets | filter: {solved: false} | orderBy:'-unsolvedCount' ">
 		    <!-- Renders each ticket to the queue -->
 		    <a class="list-group-item list-group-item-action" ng-class="{'ticket-claimed list-group-item list-group-item-action': ticket.claimed,  'studentTicket list-group-item list-group-item-action' : (ticket.unsolvedCount <= 1), 'fellowTicket list-group-item list-group-item-action' : (ticket.unsolvedCount === 2), 'instructorTicket list-group-item list-group-item-action' : (ticket.unsolvedCount > 2),    'list-group-item list-group-item-action': !ticket.claimed}" ng-mouseover = 'showDot(ticket.x, ticket.y)' ng-mouseleave = 'renew()' x = {{ticket.x}} y ={{ticket.y}}>
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
 
 
         	<h5 class="list-group-item-heading" ng-bind="ticket.user.displayname"></h5>
@@ -49,22 +39,6 @@
 
 		<!-- Form for submitting new tickets -->
 		<form autocomplete="off" name="input-group" class="input-group" ng-submit="addTicket()">
-<<<<<<< HEAD
-		  <label class="locationtext" for="select"> Select your location: </label>
-		  <select name="select" class="form-control" ng-model="ticket.location" required>
-	          <option value="Lecture Hall">Lecture Hall</option> <!-- x: 25-190; y: 50-100-->
-	          <option value="Pairing Station">Pairing Station</option> <!-- x: 25-190; y: 140-210 -->
-	          <option value="Kitchen">Kitchen</option><!-- x: 25-190 ; y: 240-320 -->
-	          <option value="Couch">Couch</option><!-- x: 250-370  ; y: 230-325 -->
-	          <option value="Senior Zone">Senior Zone</option><!-- x: 270-370 ; y: 370-610 -->
-	          <option value="The Hopper">The Hopper</option><!-- x: 25-160 ; y: 470-550 -->
-	          <option value="The Dijkstra">The Dijkstra</option><!-- x: 25-160 ; y: 590-655 -->
-	          <option value="The Ada">The Ada</option><!-- x: 290-370 ; y: 655-760 -->
-	          <option value="Entrance Hall">Entrance Hall</option><!-- x: 25-260 ; y: 690-760 -->
-		  </select>
-		  <input name="ticket" class="input-text" type="text" ng-model="ticket.message" placeholder="Enter your question here" required/>
-		  <input class="submit btn btn-default" type="submit" value="Add" ng-disabled="!ticket.location">
-=======
 		  <label class="locationtext" for="select">  Your location: </label>
 		    <select name="select" class="form-control" ng-model="ticket.location" required disabled>{{ticket.location}}
 
@@ -80,7 +54,6 @@
 		    </select>
 		    <input name="ticket" class="input-text" type="text" ng-model="ticket.message" placeholder="Enter your question here" required/>
 		    <input class="submit btn btn-default" type="submit" value="Add" ng-disabled="!ticket.location">
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
 		</form>
 	</div>
 
@@ -89,11 +62,7 @@
 		<h1>Click your location on map!</h1>
 		<svg width="400" height="800">
 		<!-- Loads map image -->
-<<<<<<< HEAD
-			<image ng-click="getCoordinates($event)" width="400" height="800" xlink:href="../../../smaller.png" />
-=======
 			<image ng-click="getCoordinates($event)" x="0" y="0" width="400" height="800" xlink:href="../../../smaller.png" />
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
 				<!-- Adds pulsing dots for each ticket -->
 				<foreignobject  ng-repeat="ticket in data.tickets | filter: {solved: false}" ng-attr-x="{{ticket.x}}" ng-attr-y="{{ticket.y}}">
 					<div id="holder">

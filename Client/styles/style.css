@@ -159,6 +159,7 @@ input[type=number] {
 	float: right;
 	margin-top: -30px;
 	position: absolute;
+	z-index: 99;
 }
 
 
@@ -314,13 +315,8 @@ footer {
   background-color: #c7c8d6;
 }
 
-<<<<<<< HEAD
-
-=======
 .seanissoocool {
 	background-color: red;
 	
 
 }
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
-
