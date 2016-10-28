@@ -2,18 +2,33 @@
 
 angular.module('app.queue', [])
 
+<<<<<<< e58bd7453bc858eed584b975384e022e1d003b4d
 .controller('QueueController', ['$scope', 'Tickets', 'Auth', '$location', function($scope, Tickets, Auth, $location){
   $scope.isadmin = false;
+=======
+.controller('QueueController', ['$scope', 'Tickets', 'Auth', function($scope, Tickets, Auth){
+  $scope.view;
+>>>>>>> ticket auth color coding and userTicket view created
   $scope.data = {};
   var SVGpulse;
   var SVGdot;
 
   Socket.on('ticketChange', function() {
+<<<<<<< e58bd7453bc858eed584b975384e022e1d003b4d
     console.log('client receives ticket change event');
     initializeQueue();
+=======
+    if ($scope.view === 'lobby') {
+      $scope.initializeQueue();   
+    } else if($scope.view === 'user') {
+      $scope.showUserTickets();
+    }
+    
+>>>>>>> ticket auth color coding and userTicket view created
   });
 
-  var initializeQueue = function() {
+  $scope.initializeQueue = function() {
+    $scope.view = 'lobby';
     //retrieve tickets from database
     Tickets.getTickets()
       .then(function(results){
@@ -69,6 +84,7 @@ angular.module('app.queue', [])
   }
 
   $scope.showUserTickets = function() {
+    $scope.view = 'user';
     //retrieve tickets from database
     Tickets.getUserTickets()
       .then(function(results){
@@ -251,6 +267,6 @@ angular.module('app.queue', [])
     }
   }
 
-  initializeQueue();
+  $scope.initializeQueue();
 
 }]);
