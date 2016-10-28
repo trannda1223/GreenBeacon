@@ -64,7 +64,6 @@ module.exports = {
   },
 
   updateUser: function(req, res) {
-    console.log(req.body);
     User.find({where: {username: req.body.username}})
     .then(function(user){
       user.update({ authorizationlevel: req.body.authorizationlevel, isadmin: req.body.isadmin})
@@ -81,7 +80,7 @@ module.exports = {
 
   // query for all tickets and claims that exist in DB and send to client
   getTickets: function(req, res) {
-    
+
     User.find({ where: { username: req.user.username } }).then(function(user){
 
       TicketLevel.find({where: { authorizationlevel: user.authorizationlevel }}).then(function(authlevel) {
@@ -94,17 +93,10 @@ module.exports = {
               });
           });
       })
-          
+
 
 
       })
-
-
-
-
-
-
-
   },
 
   // create a new ticket instance and add it to the tickets table
@@ -171,10 +163,16 @@ module.exports = {
       });
   },
 
-  // seedDB: function(){
-  //   TicketLevel.create({})
-  // }
-
+  updateThresholds: function(req, res) {
+    console.log(req.body);
+    TicketLevel.find({ where: { authorizationlevel: req.body.authlevel } })
+      .then(function(ticketLevel) {
+        ticketLevel.update({ threshold: req.body.threshold});
+      })
+        .then(function() {
+          res.end()
+      });
+  }
 
 
 };

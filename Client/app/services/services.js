@@ -86,13 +86,27 @@ angular.module('app.services', [])
     });;
   };
 
+  //Sends PUT request to the server in order to reset the thresholds for ticket
+  //importance
+  var updateThresholds = function(ticket) {
+    return $http({
+      method: 'PUT',
+      url: '/ticketLevel',
+      data: ticket
+    })
+    .then(function(data){
+      console.log(data);
+    })
+  }
+
   return {
     getTickets: getTickets,
     addTicket: addTicket,
     claimTicket: claimTicket,
     eraseClaim: eraseClaim,
     solveTicket: solveTicket,
-    unsolveTicket: unsolveTicket
+    unsolveTicket: unsolveTicket,
+    updateThresholds: updateThresholds
   }
 }])
 
