@@ -112,11 +112,6 @@ module.exports = {
             });
         });
     })
-<<<<<<< HEAD
-
-=======
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
-
   },
 
   // create a new ticket instance and add it to the tickets table

@@ -118,13 +118,9 @@ angular.module('app.services', [])
     eraseClaim: eraseClaim,
     solveTicket: solveTicket,
     unsolveTicket: unsolveTicket,
-<<<<<<< HEAD
-    getUserTickets: getUserTickets
-=======
     getUserTickets: getUserTickets,
     updateThresholds: updateThresholds
 
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
   }
 }])
 

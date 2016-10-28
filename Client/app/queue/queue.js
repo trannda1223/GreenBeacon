@@ -2,13 +2,9 @@
 
 angular.module('app.queue', [])
 
-<<<<<<< HEAD
-.controller('QueueController', ['$scope', 'Tickets', 'Auth', function($scope, Tickets, Auth){
-=======
 
 .controller('QueueController', ['$scope', 'Tickets', 'Auth', '$location', function($scope, Tickets, Auth, $location){
   $scope.isadmin = false;
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
   $scope.view;
   $scope.data = {};
   var SVGpulse;
@@ -28,11 +24,8 @@ angular.module('app.queue', [])
     //retrieve tickets from database
     Tickets.getTickets()
       .then(function(results){
-<<<<<<< HEAD
-=======
         console.log(results, 'Tickets.getTickets inside initializeQueue called')
         $scope.isadmin = results.data.isadmin;
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
         
         SVGpulse = document.getElementsByClassName('pulse');
         SVGdot = document.getElementsByClassName('dot');
@@ -144,23 +137,12 @@ angular.module('app.queue', [])
 
   $scope.getCoordinates = function(event) {
     console.log(event);
-<<<<<<< HEAD
-    var x = event.clientX;
-    var y = event.clientY;
-=======
     var x = event.offsetX;
     var y = event.offsetY;
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
     var coords = "X coords: " + x + ", Y coords: " + y;
     console.log(coords);
     $scope.ticket.x = x;
     $scope.ticket.y = y; 
-<<<<<<< HEAD
-   
-}
-
-
-=======
 
 
     if ($scope.ticket.x <=190 && $scope.ticket.x >= 0 && $scope.ticket.y <= 123 && $scope.ticket.y >=0) {
@@ -202,7 +184,6 @@ angular.module('app.queue', [])
 }
 
 
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
   $scope.addTicket = function () {
   //assign random color for each ticket's dot
   function getRandomColor() {
@@ -216,47 +197,6 @@ angular.module('app.queue', [])
 
   $scope.ticket.color =  getRandomColor();
 
-<<<<<<< HEAD
-
-  // if ($scope.ticket.location === 'Lecture Hall') {
-  //   $scope.ticket.x = Math.random() * 165 + 25;
-  //   $scope.ticket.y = Math.random() * 50 + 50;
-
-  // } else if ($scope.ticket.location === 'Pairing Station') {
-  //   $scope.ticket.x = Math.random() * 165 + 25;
-  //   $scope.ticket.y = Math.random() * 70 + 140;
-
-  // } else if ($scope.ticket.location === 'Kitchen') {
-  //   $scope.ticket.x = Math.random() * 165 + 25;
-  //   $scope.ticket.y = Math.random() * 80 + 240;
-
-  // } else if ($scope.ticket.location === 'Couch') {
-  //   $scope.ticket.x = Math.random() * 120 + 250;
-  //   $scope.ticket.y = Math.random() * 95 + 230;
-
-  // } else if ($scope.ticket.location === 'Senior Zone') {
-  //   $scope.ticket.x = Math.random() * 100 + 270;
-  //   $scope.ticket.y = Math.random() * 240 + 370;
-
-  // } else if ($scope.ticket.location === 'The Hopper') {
-  //   $scope.ticket.x = Math.random() * 135 + 25;
-  //   $scope.ticket.y = Math.random() * 80 + 470;
-
-  // } else if ($scope.ticket.location === 'The Dijkstra') {
-  //   $scope.ticket.x = Math.random() * 135 + 25;
-  //   $scope.ticket.y = Math.random() * 65 + 590;
-
-  // } else if ($scope.ticket.location === 'The Ada') {
-  //   $scope.ticket.x = Math.random() * 80 + 290;
-  //   $scope.ticket.y = Math.random() * 105 + 655;
-
-  // } else if ($scope.ticket.location === 'Entrance Hall') {
-  //   $scope.ticket.x = Math.random() * 235 + 25;
-  //   $scope.ticket.y = Math.random() * 70 + 690;
-  // }
-
-=======
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
   //retrieve new ticket from html form, pass to add Ticket function
 
   Tickets.addTicket($scope.ticket)
@@ -331,8 +271,6 @@ angular.module('app.queue', [])
     }
   }
 
-<<<<<<< HEAD
-=======
   $scope.renew = function () { 
     if ($scope.view === 'lobby') {
       $scope.initializeQueue();   
@@ -342,7 +280,6 @@ angular.module('app.queue', [])
 
   };
  
->>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
   $scope.initializeQueue();
 
 }]);
