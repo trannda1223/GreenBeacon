@@ -112,7 +112,6 @@ module.exports = {
             });
         });
     })
-
   },
 
   // create a new ticket instance and add it to the tickets table
