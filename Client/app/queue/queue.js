@@ -28,6 +28,17 @@ angular.module('app.queue', [])
         $scope.isadmin = results.data.isadmin;
         $scope.userID = results.data.userID;
         $scope.name = results.data.displayname.split(" ")[0];
+        $scope.authorizationlevel = results.data.authorizationlevel;
+        $scope.setUserRole = function() {
+          if ($scope.authorizationlevel === 1) {
+            $scope.role = 'student';
+          } else if ($scope.authorizationlevel === 2) {
+            $scope.role = 'fellow';
+          } else {
+            $scope.role = 'instructor';
+          }
+        };
+        $scope.setUserRole();
 
         
         SVGpulse = document.getElementsByClassName('pulse');
