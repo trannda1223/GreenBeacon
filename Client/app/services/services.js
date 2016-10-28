@@ -1,6 +1,4 @@
-
-
-angular.module('app.services', ['btford.socket-io'])
+angular.module('app.services', [])
 
 //Tickets factory - handles all tickets manipulations
 .factory('Tickets', ['$http', '$window', function ($http, $window) {
@@ -42,6 +40,7 @@ angular.module('app.services', ['btford.socket-io'])
       data: ticket
     })
     .then(function () {
+      console.log('emmitting addTicket event');
       Socket.emit('addTicket');
     });
   };
@@ -54,6 +53,7 @@ angular.module('app.services', ['btford.socket-io'])
       data: ticket
     })
     .then(function () {
+      console.log('emitting claimed ticket event');
       Socket.emit('claimTicket');
     });;
   };
@@ -66,6 +66,7 @@ angular.module('app.services', ['btford.socket-io'])
       data: data
     })
     .then(function () {
+      console.log('emitting erase claim event');
       Socket.emit('eraseClaim');
     });;
   };
@@ -78,6 +79,7 @@ angular.module('app.services', ['btford.socket-io'])
       data: ticket
     })
     .then(function () {
+      console.log('emitting solve ticket event');
       Socket.emit('solveTicket');
     });;
   };
@@ -90,9 +92,24 @@ angular.module('app.services', ['btford.socket-io'])
       data: ticket
     })
     .then(function () {
+      console.log('emitting unsolve ticket event');
+
       Socket.emit('unsolveTicket');
     });;
   };
+
+  //Sends PUT request to the server in order to reset the thresholds for ticket
+  //importance
+  var updateThresholds = function(ticket) {
+    return $http({
+      method: 'PUT',
+      url: '/ticketLevel',
+      data: ticket
+    })
+    .then(function(data){
+      console.log(data);
+    })
+  }
 
   return {
     getTickets: getTickets,
@@ -101,11 +118,17 @@ angular.module('app.services', ['btford.socket-io'])
     eraseClaim: eraseClaim,
     solveTicket: solveTicket,
     unsolveTicket: unsolveTicket,
+<<<<<<< HEAD
     getUserTickets: getUserTickets
+=======
+    getUserTickets: getUserTickets,
+    updateThresholds: updateThresholds
+
+>>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
   }
 }])
 
-//Tickets factory - handles authentication processes
+//Auth factory - handles authentication processes
 .factory('Auth', ['$http', '$window', function($http, $window){
 
   //Redirects to path, so GitHub OAuth process will be triggered
@@ -124,7 +147,36 @@ angular.module('app.services', ['btford.socket-io'])
   }
 }])
 
-//Socket factory - returns provided socket factory from angular-socket-io
-.factory('Socket', ['socketFactory', function(socketFactory){
-  return socketFactory();
+//Users factory - handles user roles
+.factory('Users', ['$http', '$location', function($http, $location){
+
+  var getUsers = function(){
+    return $http({
+      method: 'GET',
+      url: '/users'
+    })
+    .then(function(res){
+      return res.data;
+    })
+    .catch(function(err) {
+      console.log('err', err.status)
+      if(err.status === 401) {
+        $location.path('/notauthorized');
+      } else {
+        console.log(err, 'error');
+      }
+    })
+  };
+
+  var updateUser = function(user){
+    return $http({
+      method: 'PUT',
+      url: '/users',
+      data: user
+    })
+  }
+  return {
+    getUsers: getUsers,
+    updateUser: updateUser
+  }
 }]);

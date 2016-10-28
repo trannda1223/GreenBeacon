@@ -2,7 +2,13 @@
 
 angular.module('app.queue', [])
 
+<<<<<<< HEAD
 .controller('QueueController', ['$scope', 'Tickets', 'Auth', function($scope, Tickets, Auth){
+=======
+
+.controller('QueueController', ['$scope', 'Tickets', 'Auth', '$location', function($scope, Tickets, Auth, $location){
+  $scope.isadmin = false;
+>>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
   $scope.view;
   $scope.data = {};
   var SVGpulse;
@@ -22,6 +28,11 @@ angular.module('app.queue', [])
     //retrieve tickets from database
     Tickets.getTickets()
       .then(function(results){
+<<<<<<< HEAD
+=======
+        console.log(results, 'Tickets.getTickets inside initializeQueue called')
+        $scope.isadmin = results.data.isadmin;
+>>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
         
         SVGpulse = document.getElementsByClassName('pulse');
         SVGdot = document.getElementsByClassName('dot');
@@ -102,18 +113,22 @@ angular.module('app.queue', [])
           //if the helpee (user) id of the claim matches the current session user
           if (claim.helpeeId === results.data.userID) {
             //alert the helpee and include the name of the user who claimed the ticket
+            console.log(claim, 'inside for loop before alert');
             alert(claim.user.displayname + ' is on their way!');
 
             for (var ticket of $scope.data.tickets) {
               //if the ticket's claimed attribute is true and the user of the claimed ticket matches the current session user
                 //set the ticket's preSolved state to true
+                console.log(ticket, 'presolved stuff');
               if (ticket.claimed && ticket.userId === results.data.userID) {
                 ticket.preSolved = true;
               }
             }
             //Delete the claim from the database
+            console.log(claim, 'about to erase this claim');
             Tickets.eraseClaim(claim)
             .then(function () {
+              console.log('erased claim', claim);
               //wipe out client-side claims object
                $scope.data.claims = {};
             })
@@ -129,16 +144,65 @@ angular.module('app.queue', [])
 
   $scope.getCoordinates = function(event) {
     console.log(event);
+<<<<<<< HEAD
     var x = event.clientX;
     var y = event.clientY;
+=======
+    var x = event.offsetX;
+    var y = event.offsetY;
+>>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
     var coords = "X coords: " + x + ", Y coords: " + y;
     console.log(coords);
     $scope.ticket.x = x;
     $scope.ticket.y = y; 
+<<<<<<< HEAD
    
 }
 
 
+=======
+
+
+    if ($scope.ticket.x <=190 && $scope.ticket.x >= 0 && $scope.ticket.y <= 123 && $scope.ticket.y >=0) {
+      $scope.ticket.location = 'Lecture Hall';
+    };
+
+    if ($scope.ticket.x <=190 && $scope.ticket.x >= 0 && $scope.ticket.y <= 239 && $scope.ticket.y >=124) {
+      $scope.ticket.location = 'Pairing Stations';
+    };
+    if ($scope.ticket.x <=190 && $scope.ticket.x >= 25 && $scope.ticket.y <= 320 && $scope.ticket.y >=240) {
+      $scope.ticket.location = 'Kitchen';
+    };
+    if ($scope.ticket.x <=370 && $scope.ticket.x >= 250 && $scope.ticket.y <= 325 && $scope.ticket.y >=230) {
+      $scope.ticket.location = 'Couch';
+    };
+    if ($scope.ticket.x <=370 && $scope.ticket.x >= 270 && $scope.ticket.y <= 610 && $scope.ticket.y >=370) {
+      $scope.ticket.location = 'Senior Zone';
+    };
+    if ($scope.ticket.x <=160 && $scope.ticket.x >= 25 && $scope.ticket.y <= 550 && $scope.ticket.y >=470) {
+      $scope.ticket.location = 'The Hopper';
+    };
+    if ($scope.ticket.x <=160 && $scope.ticket.x >= 25 && $scope.ticket.y <= 655 && $scope.ticket.y >=590) {
+      $scope.ticket.location = 'The Dijkstra';
+    };
+    if ($scope.ticket.x <=370 && $scope.ticket.x >= 290 && $scope.ticket.y <= 760 && $scope.ticket.y >=650) {
+      $scope.ticket.location = 'The Ada';
+    };
+    if ($scope.ticket.x <=260 && $scope.ticket.x >= 25 && $scope.ticket.y <= 760 && $scope.ticket.y >=656) {
+     $scope.ticket.location = 'Entrance Hall';
+    }
+    if ($scope.ticket.x <=160 && $scope.ticket.x >= 25 && $scope.ticket.y <= 470 && $scope.ticket.y >=320) {
+     $scope.ticket.location = '';
+    };
+    if ($scope.ticket.x <= 400 && $scope.ticket.x >= 190 && $scope.ticket.y <= 239 && $scope.ticket.y >=50) {
+     $scope.ticket.location = '';
+    };
+
+
+}
+
+
+>>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
   $scope.addTicket = function () {
   //assign random color for each ticket's dot
   function getRandomColor() {
@@ -152,6 +216,7 @@ angular.module('app.queue', [])
 
   $scope.ticket.color =  getRandomColor();
 
+<<<<<<< HEAD
 
   // if ($scope.ticket.location === 'Lecture Hall') {
   //   $scope.ticket.x = Math.random() * 165 + 25;
@@ -190,12 +255,13 @@ angular.module('app.queue', [])
   //   $scope.ticket.y = Math.random() * 70 + 690;
   // }
 
+=======
+>>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
   //retrieve new ticket from html form, pass to add Ticket function
 
   Tickets.addTicket($scope.ticket)
     .then(function () {
       $scope.ticket = {};
-      console.log('removed');
     })
     .catch(function (err) {
       console.log(err);
@@ -206,13 +272,18 @@ angular.module('app.queue', [])
     Auth.signout();
   }
 
+  $scope.admin = function() {
+    $location.path('/admin');
+  }
+
   $scope.claimTicket = function (ticket) {
+
+    ticket.disableTicket = true;
 
     //once 'claim' has been clicked'
       //pass the claimed ticket to claim Ticket service
     Tickets.claimTicket(ticket)
       .then(function () {
-        console.log('removed');
       })
       .catch(function (err) {
         console.log(err);
@@ -225,7 +296,6 @@ angular.module('app.queue', [])
     //if 'Solved' has been clicked on the ticket, pass that ticket into solveTicket service
      Tickets.solveTicket(ticket)
        .then(function () {
-         console.log('removed');
        })
        .catch(function (err) {
          console.log(err);
@@ -238,7 +308,6 @@ angular.module('app.queue', [])
     //if 'Not Solved' is clicked, pass the ticket to unsolveTicket service
      Tickets.unsolveTicket(ticket)
       .then(function () {
-        console.log('removed');
       })
       .catch(function (err) {
         console.log(err);
@@ -262,6 +331,18 @@ angular.module('app.queue', [])
     }
   }
 
+<<<<<<< HEAD
+=======
+  $scope.renew = function () { 
+    if ($scope.view === 'lobby') {
+      $scope.initializeQueue();   
+    } else if($scope.view === 'user') {
+      $scope.showUserTickets();
+    }
+
+  };
+ 
+>>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
   $scope.initializeQueue();
 
 }]);

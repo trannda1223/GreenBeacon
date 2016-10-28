@@ -1,0 +1,64 @@
+<div ng-init='loadData()'>
+
+  <h1 align="center">Update User Roles</h1>
+
+  <table align="center">
+    <tr>
+      <th><h2>Name</h2></th>
+      <th><h2>Authorization</h2></th>
+      <th><h2>Administrator</h2></th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>
+        <select ng-change="updateTable()" ng-model="person">
+          <option ng-repeat="user in users | orderBy: 'displayname'">{{user.displayname}}</option>
+        </select>
+      </td>
+      <td>
+        <select ng-model="selectedPerson.authorizationlevel">
+          <option value='1'>Student</option>
+          <option value='2'>Fellow</option>
+          <option value='3'>Instructor</option>
+        </select>
+      </td>
+      <td>
+        <input type='checkbox' ng-checked="selectedPerson.isadmin" ng-model="selectedPerson.isadmin"/> Y/N
+      </td>
+      <td>
+        <input type='submit' ng-click="updateUser()"/>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+  <h1 align="center">Update Ticket Thresholds</h1>
+
+
+  <table align="center">
+    <tr>
+      <th><h1>Auth Level</h1></th>
+      <th><h1>Threshold</h1></th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>
+        <select ng-model="ticket.authlevel">
+          <option value='1'>Student</option>
+          <option value='2'>Fellow</option>
+          <option value='3'>Instructor</option>
+        </select>
+      </td>
+      <td>
+        <input type="number" min="1" max="5" ng-model="ticket.threshold"/>
+      </td>
+      <td>
+        <input type='submit' ng-click="updateThresholds()"/>
+      </td>
+    </tr>
+  </table>
+
+
+
+  <!--FOR DEV'S EYES ONLY - update DB schemas  -->

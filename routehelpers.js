@@ -44,6 +44,35 @@ module.exports = {
     }
   },
 
+  //validates whether the user is an administrator
+  isAdmin: function(req, res, next) {
+    User.find({where: {username: req.session.passport.user.username}})
+    .then(function(user){
+      if(user.isadmin === true){
+      next();
+    } else {
+      res.sendStatus(401);
+    }
+  });
+  },
+
+  getUsers: function(req, res) {
+    User.findAll()
+    .then(function(users) {
+      res.json(users);
+    });
+  },
+
+  updateUser: function(req, res) {
+    User.find({where: {username: req.body.username}})
+    .then(function(user){
+      user.update({ authorizationlevel: req.body.authorizationlevel, isadmin: req.body.isadmin})
+    })
+    .then(function(user){
+      res.json(user);
+    })
+  },
+
   terminateSession: function(req, res) {
     req.session.destroy();
     res.redirect('/#/signin');
@@ -51,7 +80,7 @@ module.exports = {
 
   // query for all tickets and claims that exist in DB and send to client
   getTickets: function(req, res) {
-    
+
     User.find({ where: { username: req.user.username } }).then(function(user){
 
       TicketLevel.find({where: { authorizationlevel: user.authorizationlevel }}).then(function(authlevel) {
@@ -60,12 +89,10 @@ module.exports = {
           .then(function(tickets) {
             Claim.findAll({ include: [User, Ticket] })
               .then(function(claims) {
-                res.send({ tickets: tickets, claims: claims, userID: req.session.userID });
+                res.send({ tickets: tickets, claims: claims, userID: req.session.userID, isadmin: user.isadmin });
               });
           });
       })
-          
-
 
       })
 
@@ -85,7 +112,10 @@ module.exports = {
             });
         });
     })
+<<<<<<< HEAD
 
+=======
+>>>>>>> d492b2b00ed54c310fee0a2d01e0f0af4c3ab47c
 
   },
 
@@ -153,10 +183,16 @@ module.exports = {
       });
   },
 
-  // seedDB: function(){
-  //   TicketLevel.create({})
-  // }
-
+  updateThresholds: function(req, res) {
+    console.log(req.body);
+    TicketLevel.find({ where: { authorizationlevel: req.body.authlevel } })
+      .then(function(ticketLevel) {
+        ticketLevel.update({ threshold: req.body.threshold});
+      })
+        .then(function() {
+          res.end()
+      });
+  }
 
 
 };
