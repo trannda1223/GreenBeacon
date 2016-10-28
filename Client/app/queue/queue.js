@@ -3,7 +3,7 @@
 angular.module('app.queue', [])
 
 .controller('QueueController', ['$scope', 'Tickets', 'Auth', '$location', function($scope, Tickets, Auth, $location){
-
+  $scope.isadmin = false;
   $scope.data = {};
   var SVGpulse;
   var SVGdot;
@@ -18,6 +18,7 @@ angular.module('app.queue', [])
     Tickets.getTickets()
       .then(function(results){
         console.log(results, 'Tickets.getTickets inside initializeQueue called')
+        $scope.isadmin = results.data.isadmin;
 
         SVGpulse = document.getElementsByClassName('pulse');
         SVGdot = document.getElementsByClassName('dot');

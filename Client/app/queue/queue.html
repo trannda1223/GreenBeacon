@@ -3,8 +3,8 @@
 <div class = 'headerq clearfix'>
 	<div class='logoq'>
 	    <img class='logoimgq' alt="Logo" src="/../../logo.png" /></div>
-			  <button type='button' class='admin btn btn-default' ng-click='admin()'>Admin</button>
-        <button type="button" class="signout btn btn-default" ng-click="signout()">Sign out</button>
+			  <button type='button' ng-show="isadmin" class='admin btn btn-default' ng-click='admin()'>Admin</button>
+        <button type="button"  class="signout btn btn-default" ng-click="signout()">Sign out</button>
     </div>
 
 <div id="big-container">
