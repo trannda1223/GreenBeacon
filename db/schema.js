@@ -140,9 +140,6 @@ var initializeTicketLevels = function() {
 
 }
 
-
-
-
 module.exports = {
   User: User,
   Ticket: Ticket,
