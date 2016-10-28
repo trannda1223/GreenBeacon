@@ -31,6 +31,10 @@ angular.module('app.queue', [])
       $scope.fellow = setLevels.filter(function(level){
         return level.authorizationlevel === 2;
       })[0];
+
+      $scope.teacher = setLevels.filter(function(level){
+        return level.authorizationlevel === 3;
+      })[0];
     })
 
   $scope.initializeQueue = function() {
