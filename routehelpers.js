@@ -51,7 +51,7 @@ module.exports = {
       if(user.isadmin === true){
       next();
     } else {
-      console.log('not an administrator');
+      res.sendStatus(401);
     }
   });
   },

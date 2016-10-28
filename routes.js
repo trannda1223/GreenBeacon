@@ -29,9 +29,9 @@ module.exports.router = function(app) {
 
   app.put('/ticketLevel', helpers.isLoggedIn, helpers.isAdmin, helpers.updateThresholds);
 
-  app.get('/users', helpers.isLoggedIn, helpers.getUsers);
+  app.get('/users', helpers.isLoggedIn, helpers.isAdmin, helpers.getUsers);
 
-  app.put('/users', helpers.isLoggedIn, helpers.updateUser);
+  app.put('/users', helpers.isLoggedIn, helpers.isAdmin, helpers.updateUser);
 
   app.get('/signout', helpers.isLoggedIn, helpers.terminateSession);
 

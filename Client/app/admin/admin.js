@@ -1,6 +1,6 @@
 angular.module('app.admin', [])
 
-.controller('AdminController', ['Users', '$scope', 'Tickets', function(Users, $scope, Tickets){
+.controller('AdminController', ['Users', '$scope', 'Tickets', '$location', function(Users, $scope, Tickets, $location){
 
   $scope.loadData = function(){
     Users.getUsers()
@@ -26,6 +26,9 @@ angular.module('app.admin', [])
   $scope.updateThresholds = function(){
     $scope.ticket.authlevel = Number($scope.ticket.authlevel);
     Tickets.updateThresholds($scope.ticket);
+
+  $scope.redirect = function() {
+    $location.path('/#/tickets');
   }
 
 }]);
