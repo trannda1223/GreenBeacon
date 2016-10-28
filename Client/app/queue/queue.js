@@ -35,7 +35,6 @@ angular.module('app.queue', [])
 
         //set claims to the scope
         $scope.data.claims = results.data.claims;
-        console.log($scope.data.claims, 'CLAIMS CLIENT SIDE');
 
         //iterate through all claims
         for (var claim of $scope.data.claims) {

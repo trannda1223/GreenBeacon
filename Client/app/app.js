@@ -17,6 +17,9 @@ angular.module('app', ['app.auth', 'app.queue', 'app.services', 'app.admin', 'ng
 			templateUrl: 'app/admin/admin.html',
 			 controller: 'AdminController'
 		})
+		.when('/notauthorized', {
+			templateUrl: 'app/admin/notauthorized.html'
+		})
 		.otherwise({
 			redirectTo: '/tickets'
 		});

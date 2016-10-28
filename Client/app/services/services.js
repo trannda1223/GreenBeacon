@@ -110,7 +110,7 @@ angular.module('app.services', [])
 }])
 
 //Users factory - handles user roles
-.factory('Users', ['$http', function($http){
+.factory('Users', ['$http', '$location', function($http, $location){
 
   var getUsers = function(){
     return $http({
@@ -118,8 +118,15 @@ angular.module('app.services', [])
       url: '/users'
     })
     .then(function(res){
-      console.log('SERVICES', res);
       return res.data;
+    })
+    .catch(function(err) {
+      console.log('err', err.status)
+      if(err.status === 401) {
+        $location.path('/notauthorized');
+      } else {
+        console.log(err, 'error');
+      }
     })
   };
 
