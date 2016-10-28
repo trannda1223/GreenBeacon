@@ -4,12 +4,30 @@
       <th>Name</th>
       <th>Authorization Level</th>
       <th>Is Administrator?</th>
+      <th></th>
     </tr>
-    <tr ng-repeat="user in users" ng-model='person'>
-      <td>{{user.displayname}}</td>
-      <td><input type='text' placeholder='{{user.authorizationlevel}}'/></td>
-      <!--write logic to turn numbers into 'student', 'fellow' or 'teacher'-->
-      <td><input type='radio'/>{{user.isadmin}}</td>
+    <tr>
+      <td>
+        <select ng-change="updateTable()" ng-model="person">
+          <option ng-repeat="user in users">{{user.displayname}}</option>
+        </select>
+      </td>
+      <td>{{selectedPerson.authorizationlevel}}
+        <input type='text' placeholder='update authorization' ng-model="selectedPerson.authorizationlevel"/>
+      </td>
+      <td>
+        <input type='checkbox' ng-checked="selectedPerson.isadmin" ng-model="selectedPerson.isadmin"/>
+      </td>
+      <td>
+        <input type='submit' ng-click="updateUser()"/>
+      </td>
     </tr>
   </table>
 </div>
+
+
+
+
+
+<!--DEV PURPOSES
+  create ticket and create claim - update DB schemas  -->

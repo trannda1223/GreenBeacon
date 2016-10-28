@@ -35,6 +35,7 @@ angular.module('app.queue', [])
 
         //set claims to the scope
         $scope.data.claims = results.data.claims;
+        console.log($scope.data.claims, 'CLAIMS CLIENT SIDE');
 
         //iterate through all claims
         for (var claim of $scope.data.claims) {
@@ -132,11 +133,13 @@ angular.module('app.queue', [])
     Auth.signout();
   }
 
-  $scope.admin = function(){
+  $scope.admin = function() {
     $location.path('/admin');
   }
 
   $scope.claimTicket = function (ticket) {
+
+    ticket.disableTicket = true;
 
     //once 'claim' has been clicked'
       //pass the claimed ticket to claim Ticket service

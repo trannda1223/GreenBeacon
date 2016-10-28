@@ -28,7 +28,8 @@ module.exports.router = function(app) {
   app.put('/unsolved', helpers.isLoggedIn, helpers.tagUnSolved);
 
   app.get('/users', helpers.isLoggedIn, helpers.getUsers);
-    //will need to change first function to isAdmin - and write isAdmin function in helpers
+
+  app.put('/users', helpers.isLoggedIn, helpers.updateUser);
 
   app.get('/signout', helpers.isLoggedIn, helpers.terminateSession);
 
