@@ -17,6 +17,7 @@
       </td>
       <td>
         <select ng-model="selectedPerson.authorizationlevel">
+          <option selected>{{selectedPerson.authorizationlevel}}</option>
           <option value='1'>Student</option>
           <option value='2'>Fellow</option>
           <option value='3'>Instructor</option>
@@ -44,14 +45,14 @@
     </tr>
     <tr>
       <td>
-        <select ng-model="ticket.authlevel">
+        <select ng-change="displayThreshold()" ng-model="ticket.authlevel">
           <option value='1'>Student</option>
           <option value='2'>Fellow</option>
           <option value='3'>Instructor</option>
         </select>
       </td>
       <td>
-        <input type="number" min="1" max="5" ng-model="ticket.threshold"/>
+        <input type="number" min="1" max="5" placeholder="{{ticket.threshold}}" ng-model="ticket.threshold"/>
       </td>
       <td>
         <input type='submit' ng-click="updateThresholds()"/>

@@ -102,7 +102,7 @@ module.exports = {
 
   getUserTickets: function(req, res) {
     // console.log(req);
-    
+
     User.find({ where: { username: req.user.username } }).then(function(user){
       Ticket.findAll({ include: [User], where: {userId: user.id }  })
         .then(function(tickets) {
@@ -169,7 +169,6 @@ module.exports = {
 
   // flag the given ticket as not solved in the tickets table
   tagUnSolved: function(req, res) {
-    console.log(req.body);
     Ticket.find({ where: { id: req.body.id } })
       .then(function(ticket) {
         ticket.update({ preSolved: false, claimed: false, unsolvedCount: ticket.get('unsolvedCount') + 1})
@@ -179,14 +178,20 @@ module.exports = {
       });
   },
 
+  getThresholds: function(req, res) {
+    TicketLevel.findAll({})
+      .then(function(tickets){
+        res.json(tickets);
+      })
+  },
+
   updateThresholds: function(req, res) {
-    console.log(req.body);
     TicketLevel.find({ where: { authorizationlevel: req.body.authlevel } })
       .then(function(ticketLevel) {
         ticketLevel.update({ threshold: req.body.threshold});
       })
-        .then(function() {
-          res.end()
+        .then(function(result) {
+          res.json(result)
       });
   }
 
