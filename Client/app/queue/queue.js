@@ -6,6 +6,7 @@ angular.module('app.queue', [])
 .controller('QueueController', ['$scope', 'Tickets', 'Auth', '$location', function($scope, Tickets, Auth, $location){
   $scope.isadmin = false;
   $scope.view = 'lobby';
+  $scope.pageload = true;
   $scope.toggleView = function(room){
     console.log('room', room)
     $scope.view = room;
@@ -55,6 +56,10 @@ angular.module('app.queue', [])
         $scope.userID = results.data.userID;
         $scope.name = results.data.displayname.split(" ")[0];
         $scope.authorizationlevel = results.data.authorizationlevel;
+        if ($scope.pageload) {
+          $scope.filtervalue = '!' + $scope.userID;
+        }
+        $scope.pageload = false;
 
         $scope.setUserRole = function() {
           if ($scope.authorizationlevel === 1) {
@@ -236,7 +241,6 @@ angular.module('app.queue', [])
       }
     }
   }
-
 
   $scope.initializeQueue();
 
