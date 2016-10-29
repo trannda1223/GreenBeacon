@@ -78,11 +78,16 @@ input[type=number] {
 	overflow: auto;
 }
 
-.list-group, .input-group {
+.list-group, .input-group, .davidcrappybuttons {
    width: 450px;
 }
 .list-group {
   margin-right: 100px;
+}
+
+.lobby, .user {
+	display: inline-block;
+
 }
 
 .input-group {
@@ -116,7 +121,7 @@ input[type=number] {
 
 .btn {
 	color: #613DC1;
-
+	/*border-radius:0;*/
 }
 
 .btn-1 {
@@ -207,8 +212,8 @@ input[type=number] {
 	-moz-animation-iteration-count: infinite;
 	animation-iteration-count: infinite;
 	position: absolute;
-	top: -15px;
-	left: -15px;
+	top: -14.5px;
+	left: -14.5px;
 	z-index: 1;
 	opacity: 0;
 }
