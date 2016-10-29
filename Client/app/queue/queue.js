@@ -20,27 +20,29 @@ angular.module('app.queue', [])
   });
 
   //set threshold levels for ticket colors
-  Tickets.getThresholds()
-  .then(function(levels) {
-    var setLevels = levels.data;
+  var displayThresholds = function(){
+    Tickets.getThresholds()
+    .then(function(levels) {
+      var setLevels = levels.data;
 
-    $scope.student = setLevels.filter(function(level){
-      return level.authorizationlevel === 1;
-    })[0];
+      $scope.student = setLevels.filter(function(level){
+        return level.authorizationlevel === 1;
+      })[0];
 
-    $scope.fellow = setLevels.filter(function(level){
-      return level.authorizationlevel === 2;
-    })[0];
+      $scope.fellow = setLevels.filter(function(level){
+        return level.authorizationlevel === 2;
+      })[0];
 
-    $scope.teacher = setLevels.filter(function(level){
-      return level.authorizationlevel === 3;
-    })[0];
-  })
+      $scope.teacher = setLevels.filter(function(level){
+        return level.authorizationlevel === 3;
+      })[0];
+    })
+  };
 
   $scope.initializeQueue = function() {
     $scope.view = 'lobby';
     //retrieve tickets from database
-    Tickets.getThresholds();
+    displayThresholds();
     Tickets.getTickets()
       .then(function(results){
         $scope.isadmin = results.data.isadmin;
