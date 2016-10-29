@@ -79,7 +79,6 @@ module.exports = {
 
   // query for all tickets and claims that exist in DB and send to client
   getTickets: function(req, res) {
-    console.log(req.user, 'reqeust . user')
 
     User.find({ where: { username: req.user.username } }).then(function(user){
 
@@ -115,8 +114,8 @@ module.exports = {
         if (ticket.claimed) {
           res.sendStatus(418);
         } else {
-          console.log('req.user.name', req.user.name);
-          ticket.update({ claimed: true, claimer: req.user.name })
+          console.log('req.user.name', req.user.displayName);
+          ticket.update({ claimed: true, claimer: req.user.displayName })
           .then(function() {
             res.end();
           });  
