@@ -171,12 +171,8 @@ angular.module('app.queue', [])
   $scope.ticket = {};
 
   $scope.getCoordinates = function(event) {
-    var x = event.offsetX;
-    var y = event.offsetY;
-    var coords = "X coords: " + x + ", Y coords: " + y;
-    console.log(coords);
-    $scope.ticket.x = x;
-    $scope.ticket.y = y;
+    $scope.ticket.x = event.offsetX - 5;;
+    $scope.ticket.y = event.offsetY - 5;;
 
     if ($scope.ticket.x <= 258 && $scope.ticket.x >= 102 && $scope.ticket.y <= 85 && $scope.ticket.y >= 16) {
       $scope.ticket.location = 'Lecture Hall';
@@ -254,19 +250,6 @@ angular.module('app.queue', [])
     $location.path('/admin');
   }
 
-  $scope.claimTicket = function (ticket) {
-
-
-    //once 'claim' has been clicked'
-      //pass the claimed ticket to claim Ticket service
-    Tickets.claimTicket(ticket)
-      .then(function () {
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
-
-  }
 
   $scope.solveTicket = function (ticket) {
 
@@ -283,9 +266,6 @@ angular.module('app.queue', [])
     //once 'claim' has been clicked'
       //pass the claimed ticket to claim Ticket service
     Tickets.claimTicket(ticket)
-      .then(function () {
-        initializeQueue();
-      })
       .catch(function (err) {
         console.log(err);
       });
