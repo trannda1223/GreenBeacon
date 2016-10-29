@@ -74,13 +74,15 @@ input[type=number] {
 }
 
 .list-group {
-	height: 575px;
+	height: 25em;
 	overflow: auto;
 }
 
+
 .list-group, .input-group, .davidcrappybuttons {
-   width: 450px;
+   width: 25em;
 }
+
 .list-group {
   margin-right: 100px;
 }
@@ -91,7 +93,7 @@ input[type=number] {
 }
 
 .input-group {
-	padding-top: 42px;
+
 	display: inline-block;
 }
 
@@ -163,11 +165,10 @@ input[type=number] {
 #map {
 	float: right;
 	margin-top: -30px;
+	width: 30%;
 	position: absolute;
 
 }
-
-
 
 #signin {
 	width: 40%;
