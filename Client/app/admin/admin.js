@@ -35,10 +35,10 @@ angular.module('app.admin', [])
       //set selectedPerson model equal to the user that matches displayname in the menu
     $scope.selectedPerson = $scope.users
     .filter(function(user){
-      return user.displayname === $scope.person;
+        return user.displayname === $scope.person;
      })[0];
 
-     $scope.selectedPerson.authorizationTitle = 
+     $scope.selectedPerson.authorizationTitle =
       $scope.authorizationTitleLevelMap[$scope.selectedPerson.authorizationlevel];
 
     console.log($scope.selectedPerson.authorizationTitle, 'authtitle');
@@ -61,7 +61,6 @@ angular.module('app.admin', [])
       authorizationlevel: $scope.authorizationLevelTitleMap[$scope.role],
       threshold: $scope.threshold
     }
-    console.log($scope.ticket, 'ticket');
     Tickets.updateThresholds($scope.ticket).then(function(results){
       $route.reload();
     })
