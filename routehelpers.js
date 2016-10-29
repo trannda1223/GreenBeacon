@@ -115,6 +115,7 @@ module.exports = {
         if (ticket.claimed) {
           res.sendStatus(418);
         } else {
+          console.log('req.user.name', req.user.name);
           ticket.update({ claimed: true, claimer: req.user.name })
           .then(function() {
             res.end();
@@ -128,8 +129,10 @@ module.exports = {
   setPresolve: function(req, res) {
     Ticket.find({ where: { id: req.body.id}})
     .then(function (ticket) {
+      console.log('ticket before update', ticket.preSolved);
       ticket.update({ preSolved: true })
         .then(function() {
+          console.log('ticket after update', ticket.preSolved);
           res.end();
         })
       });
