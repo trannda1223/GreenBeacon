@@ -89,7 +89,7 @@ io.on('connection', function(socket){
     io.emit('ticketChange');
   });
   socket.on('updateUser', function() {
-    io.emit('userUpdate');
+    io.emit('ticketChange');
   });
 
 
