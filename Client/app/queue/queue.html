@@ -16,12 +16,30 @@
 <div id="big-container">
 
   <!-- Tickets queue -->
+  <div class='ticketNav'> 
+  	<button type='btn' class='lobby btn btn-default' ng-click="initializeQueue()">Lobby</button>
+  	<button type='btn' class='user btn btn-default' ng-click="showUserTickets()">User</button>
+
+<!--   	<ul class='nav nav-tabs'>
+  		<li class='active'>
+  			<button type='btn' class='lobby' ng-click="initializeQueue()">Lobby</button>
+  		</li>
+  		<li>
+  			<button type='btn' class='user' ng-click="showUserTickets()">User</button>
+  		</li>
+  	</ul> -->
+
+<!-- 	<div class='container'>
+	  	<ul class='nav nav-tabs'>
+	  	  <li class='active'><a href='#time'>Today's Times</a></li>
+	  	  <li><a href='#deals'>Hot Deals</a></li>
+	  	  <li><a href='#forecast'>Forecast</a></li>
+	  	</ul>
+  	</div> -->
+
+  </div>
 	<div id="queueContainer">
 		<div class="list-group">
-		  <div class='ticketNav'>
-		  	<button type='btn' class='lobby btn btn-default' ng-click="initializeQueue()">All Tickets</button>
-		  	<button type='btn' class='user btn btn-default' ng-click="showUserTickets()">My Tickets</button>
-		  </div>
 		  <div  class="ticket" ng-repeat="ticket in data.tickets | filter: {solved: false} | orderBy:'-unsolvedCount' ">
 		    <!-- Renders each ticket to the queue -->
 		    <a class="list-group-item list-group-item-action" ng-class="{'ticket-claimed list-group-item list-group-item-action': ticket.claimed,  'studentTicket list-group-item list-group-item-action' : (ticket.unsolvedCount < {{student.threshold}}), 'fellowTicket list-group-item list-group-item-action' : (ticket.unsolvedCount >= {{student.threshold}} && ticket.unsolvedCount < {{teacher.threshold}}), 'instructorTicket list-group-item list-group-item-action' : (ticket.unsolvedCount > {{fellow.threshold}}), 'list-group-item list-group-item-action': !ticket.claimed}" ng-mouseover = 'showDot(ticket.x, ticket.y)' ng-mouseleave = 'renew()' x = {{ticket.x}} y ={{ticket.y}}>
@@ -62,6 +80,6 @@
 		</svg>
 	</div>
 
-	<footer><p>&copy; 2016 Made with  &hearts; at Makersquare | BeaconDev</p></footer>
+	<footer><p>&copy; 2016 Made with  Farts at Makersquare | BeaconDev</p></footer>
 
 </div>
