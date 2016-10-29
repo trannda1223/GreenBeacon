@@ -56,7 +56,7 @@ module.exports = {
   },
 
   getUsers: function(req, res) {
-    User.findAll()
+    User.findAll({})
     .then(function(users) {
       res.json(users);
     });
