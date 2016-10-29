@@ -59,7 +59,7 @@ input[type=number] {
 .ticketNav {
 	color: white;
 
-	
+
 }
 
 .lobby {
@@ -317,8 +317,37 @@ footer {
 
 .seanissoocool {
 	background-color: red;
-	
 
+
+}
+
+.admintable {
+  width: 100%;
+  margin: 0px;
+  border: 0px;
+  margin-top: 20px;
+}
+
+.admintable tr:nth-child(2) {
+  height: 1px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.admintable td {
+  text-align: center;
+  padding: 20px;
+}
+
+.admintable th {
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+.adminpage {
+  font-size: 1em;
 }
 
 
@@ -327,19 +356,22 @@ footer {
   overflow: auto;
 }*/
 
-/*.logo {
+.logo {
   width:180px;
   height:180px;
   margin: 0 auto;
   padding-left: 5px;
   margin-bottom: 30px;
 }
-.logo .logoimg {
+
+.logo {
   max-width:100%;
   max-height:100%;
   margin:auto;
   display:block;
-}*/
+}
 
 /*.headerq {
   display: block;
+<<<<<<< HEAD
+}*/

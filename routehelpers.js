@@ -85,7 +85,7 @@ module.exports = {
 
       TicketLevel.find({where: { authorizationlevel: user.authorizationlevel }}).then(function(authlevel) {
 
-        Ticket.findAll({ include: [User], where: {$or: [{unsolvedCount: {lte: authlevel.threshold} }, {userId: user.id }]}  })
+        Ticket.findAll({ include: [User], where: {$or: [{unsolvedCount: {lt: authlevel.threshold} }, {userId: user.id }]}  })
           .then(function(tickets) {
             Claim.findAll({ include: [User, Ticket] })
               .then(function(claims) {
@@ -185,7 +185,7 @@ module.exports = {
   },
 
   updateThresholds: function(req, res) {
-    TicketLevel.find({ where: { authorizationlevel: req.body.authlevel } })
+    TicketLevel.find({ where: { authorizationlevel: req.body.authorizationlevel } })
       .then(function(ticketLevel) {
         ticketLevel.update({ threshold: req.body.threshold});
       })

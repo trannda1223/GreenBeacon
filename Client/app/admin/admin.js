@@ -1,6 +1,18 @@
 angular.module('app.admin', [])
 
-.controller('AdminController', ['Users', '$scope', 'Tickets', '$location', function(Users, $scope, Tickets, $location){
+.controller('AdminController', ['Users', '$scope', 'Tickets', '$location', '$route', function(Users, $scope, Tickets, $location, $route){
+  //used for mapping authorization levels to titles
+  $scope.authorizationLevelTitleMap = {
+    Student: 1,
+    Fellow: 2,
+    Instructor: 3
+  };
+
+  $scope.authorizationTitleLevelMap = {
+    1: 'Student',
+    2: 'Fellow',
+    3: 'Instructor'
+  };
 
   $scope.loadData = function(){
     Users.getUsers()
@@ -10,9 +22,13 @@ angular.module('app.admin', [])
     Tickets.getThresholds()
       .then(function(result){
         $scope.levels = result.data;
-        console.log($scope.levels);
+        $scope.ticketThresholds = {};
+        $scope.levels.forEach(function(item){
+          $scope.ticketThresholds[item.authorizationlevel] = item.threshold;
+        });
+        console.log($scope.ticketThresholds);
       });
-  };
+    };
 
   $scope.updateTable = function() {
     //pull user data from users array (returned from DB) by filtering
@@ -22,30 +38,33 @@ angular.module('app.admin', [])
       return user.displayname === $scope.person;
      })[0];
 
-     if($scope.selectedPerson.authorizationlevel === 1){
-       $scope.selectedPerson.authorizationlevel = 'Student';
-     }
-     if($scope.selectedPerson.authorizationlevel === 2){
-       $scope.selectedPerson.authorizationlevel = 'Fellow';
-     }
-      if($scope.selectedPerson.authorizationlevel === 3) {
-       $scope.selectedPerson.authorizationlevel = 'Instructor';
-     }
+     $scope.selectedPerson.authorizationTitle = 
+      $scope.authorizationTitleLevelMap[$scope.selectedPerson.authorizationlevel];
+
+    console.log($scope.selectedPerson.authorizationTitle, 'authtitle');
   };
 
   $scope.displayThreshold = function() {
-    console.log($scope.levels);
+    $scope.threshold = $scope.ticketThresholds[$scope.authorizationLevelTitleMap[$scope.role]];
+    console.log($scope.threshold, 'scope threshold');
   }
 
   $scope.updateUser = function() {
-    $scope.selectedPerson.authorizationlevel = Number($scope.selectedPerson.authorizationlevel);
-    Users.updateUser($scope.selectedPerson);
+    $scope.selectedPerson.authorizationlevel = $scope.authorizationLevelTitleMap[$scope.selectedPerson.authorizationTitle];
+    Users.updateUser($scope.selectedPerson).then(function(results) {
+      $route.reload();
+    });
   };
 
   $scope.updateThresholds = function() {
-    $scope.ticket.authlevel = Number($scope.ticket.authlevel);
-    console.log($scope.ticket);
-    Tickets.updateThresholds($scope.ticket);
+    $scope.ticket = {
+      authorizationlevel: $scope.authorizationLevelTitleMap[$scope.role],
+      threshold: $scope.threshold
+    }
+    console.log($scope.ticket, 'ticket');
+    Tickets.updateThresholds($scope.ticket).then(function(results){
+      $route.reload();
+    })
   };
 
   $scope.redirect = function() {
