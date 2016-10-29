@@ -82,12 +82,16 @@ io.on('connection', function(socket){
   socket.on('unsolveTicket', function() {
     io.emit('ticketChange');
   });
-  socket.on('getThresholds', function() {
+  socket.on('updateThresholds', function() {
     io.emit('ticketChange');
   });
   socket.on('unsolveTicket', function() {
     io.emit('ticketChange');
   });
+  socket.on('updateUser', function() {
+    io.emit('userUpdate');
+  });
+
 
   socket.on('disconnect', function(){
     console.log('a user disconnected!');

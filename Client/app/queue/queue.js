@@ -19,6 +19,10 @@ angular.module('app.queue', [])
     }
   });
 
+  Socket.on('userUpdate', function() {
+    setUserRole();
+  })
+
   //set threshold levels for ticket colors
   Tickets.getThresholds()
   .then(function(levels) {
