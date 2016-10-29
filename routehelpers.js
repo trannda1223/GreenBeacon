@@ -186,7 +186,7 @@ module.exports = {
   },
 
   updateThresholds: function(req, res) {
-    TicketLevel.find({ where: { authorizationlevel: req.body.authlevel } })
+    TicketLevel.find({ where: { authorizationlevel: req.body.authorizationlevel } })
       .then(function(ticketLevel) {
         ticketLevel.update({ threshold: req.body.threshold});
       })

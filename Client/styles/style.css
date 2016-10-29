@@ -318,6 +318,35 @@ footer {
 
 }
 
+.admintable {
+  width: 100%;
+  margin: 0px;
+  border: 0px;
+  margin-top: 20px;
+}
+
+.admintable tr:nth-child(2) {
+  height: 1px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.admintable td {
+  text-align: center;
+  padding: 20px;
+}
+
+.admintable th {
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+.adminpage {
+  font-size: 1em;
+}
+
 
 /*extra stuff I don't think we need (but just in case):*/
 /*.clearfix {
