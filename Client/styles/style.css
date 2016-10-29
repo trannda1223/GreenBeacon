@@ -75,19 +75,26 @@ input[type=number] {
 }
 
 .list-group {
-	height: 575px;
+	height: 25em;
 	overflow: auto;
 }
 
-.list-group, .input-group {
-   width: 450px;
+
+.list-group, .input-group, .davidcrappybuttons {
+   width: 25em;
 }
+
 .list-group {
   margin-right: 100px;
 }
 
+.lobby, .user {
+	display: inline-block;
+
+}
+
 .input-group {
-	padding-top: 42px;
+
 	display: inline-block;
 }
 
@@ -165,11 +172,10 @@ input[type=number] {
 #map {
 	float: right;
 	margin-top: -30px;
+	width: 30%;
 	position: absolute;
 
 }
-
-
 
 #signin {
 	width: 40%;
@@ -214,8 +220,8 @@ input[type=number] {
 	-moz-animation-iteration-count: infinite;
 	animation-iteration-count: infinite;
 	position: absolute;
-	top: -15px;
-	left: -15px;
+	top: -14.5px;
+	left: -14.5px;
 	z-index: 1;
 	opacity: 0;
 }
@@ -302,9 +308,6 @@ footer {
   font-weight: bolder;
 }
 
-
-
-
 .signout, .admin {
   color: white;
   float: right;
@@ -324,7 +327,7 @@ footer {
 
 .seanissoocool {
 	background-color: red;
-
+	
 
 }
 
@@ -359,9 +362,9 @@ footer {
 
 
 /*extra stuff I don't think we need (but just in case):*/
-/*.clearfix {
+.clearfix {
   overflow: auto;
-}*/
+}
 
 .logo {
   width:180px;
@@ -371,14 +374,12 @@ footer {
   margin-bottom: 30px;
 }
 
-.logo {
-  max-width:100%;
-  max-height:100%;
-  margin:auto;
-  display:block;
-}
 
 /*.headerq {
   display: block;
 <<<<<<< HEAD
 }*/
+
+
+/*.headerq {
+  display: block
