@@ -1,8 +1,8 @@
-<div ng-init='loadData()'>
+ <div ng-init='loadData()' class="adminpage">
+  <a href="/#/tickets" type="button" style="float: right; margin-right: 10px;" class="btn">BACK TO TICKETS</a>
+  <h1 align="center" style="color: white;">Update User Roles</h1>
 
-  <h1 align="center">Update User Roles</h1>
-
-  <table align="center">
+  <table align="center" class="admintable">
     <tr>
       <th><h2>Name</h2></th>
       <th><h2>Authorization</h2></th>
@@ -16,11 +16,11 @@
         </select>
       </td>
       <td>
-        <select ng-model="selectedPerson.authorizationlevel">
-          <option selected>{{selectedPerson.authorizationlevel}}</option>
-          <option value='1'>Student</option>
-          <option value='2'>Fellow</option>
-          <option value='3'>Instructor</option>
+        <select ng-model="selectedPerson.authorizationTitle">
+          <option selected>{{selectedPerson.authorizationTitle}}</option>
+          <option>Student</option>
+          <option>Fellow</option>
+          <option>Instructor</option>
         </select>
       </td>
       <td>
@@ -31,34 +31,34 @@
       </td>
     </tr>
   </table>
-</div>
-
-
-  <h1 align="center">Update Ticket Thresholds</h1>
-
-
-  <table align="center">
+  <h1 align="center" style="color:white;">Update Ticket Thresholds</h1>
+  <table align="center" class="admintable">
     <tr>
-      <th><h1>Auth Level</h1></th>
+      <th><h1>Role</h1></th>
       <th><h1>Threshold</h1></th>
       <th></th>
     </tr>
     <tr>
       <td>
-        <select ng-change="displayThreshold()" ng-model="ticket.authlevel">
-          <option value='1'>Student</option>
-          <option value='2'>Fellow</option>
-          <option value='3'>Instructor</option>
+        <select ng-change="displayThreshold()" ng-model="role">
+          <option>Student</option>
+          <option>Fellow</option>
+          <option>Instructor</option>
         </select>
       </td>
       <td>
-        <input type="number" min="1" max="5" placeholder="{{ticket.threshold}}" ng-model="ticket.threshold"/>
+        <input type=number style="width: 50px" placeholder="{{threshold}}" ng-model="threshold"/>
       </td>
       <td>
         <input type='submit' ng-click="updateThresholds()"/>
       </td>
     </tr>
   </table>
+</div>
+
+
+
+
 
 
 
