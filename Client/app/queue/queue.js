@@ -249,7 +249,6 @@ angular.module('app.queue', [])
 
   $scope.claimTicket = function (ticket) {
 
-    ticket.disableTicket = true;
 
     //once 'claim' has been clicked'
       //pass the claimed ticket to claim Ticket service
