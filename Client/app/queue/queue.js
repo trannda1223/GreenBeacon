@@ -17,6 +17,7 @@ angular.module('app.queue', [])
     console.log('$scope.view', $scope.view);
 
   };
+  $scope.isRed = false;
   $scope.data = {};
   var SVGpulse;
   var SVGdot;
@@ -26,30 +27,30 @@ angular.module('app.queue', [])
   });
 
   //set threshold levels for ticket colors
-  Tickets.getThresholds()
-  .then(function(levels) {
-    var setLevels = levels.data;
+  var displayThresholds = function(){
+    Tickets.getThresholds()
+    .then(function(levels) {
+      var setLevels = levels.data;
 
-    $scope.student = setLevels.filter(function(level){
-      return level.authorizationlevel === 1;
-    })[0];
+      $scope.student = setLevels.filter(function(level){
+        return level.authorizationlevel === 1;
+      })[0];
 
-    $scope.fellow = setLevels.filter(function(level){
-      return level.authorizationlevel === 2;
-    })[0];
+      $scope.fellow = setLevels.filter(function(level){
+        return level.authorizationlevel === 2;
+      })[0];
 
-    $scope.teacher = setLevels.filter(function(level){
-      return level.authorizationlevel === 3;
-    })[0];
-  })
+      $scope.teacher = setLevels.filter(function(level){
+        return level.authorizationlevel === 3;
+      })[0];
+    })
+  };
 
   $scope.initializeQueue = function() {
     //retrieve tickets from database
+    displayThresholds();
     Tickets.getTickets()
       .then(function(results){
-
-        console.log(results);
-
         $scope.isadmin = results.data.isadmin;
         $scope.userID = results.data.userID;
         $scope.name = results.data.displayname.split(" ")[0];
@@ -134,8 +135,9 @@ angular.module('app.queue', [])
      $scope.ticket.location = 'Entrance Hall';
     }
     //  water closet
-    if ($scope.ticket.x <=231 && $scope.ticket.x >= 102 && $scope.ticket.y <= 339 && $scope.ticket.y >=256) {
+    if ($scope.ticket.x <=230 && $scope.ticket.x >= 70 && $scope.ticket.y <= 339 && $scope.ticket.y >=256) {
      $scope.ticket.location = '';
+     $scope.bathroomAlert = !$scope.bathroomAlert;
     };
     // instructors office
     if ($scope.ticket.x <= 400 && $scope.ticket.x >= 259 && $scope.ticket.y <= 159 && $scope.ticket.y >=16) {
@@ -146,29 +148,35 @@ angular.module('app.queue', [])
 }
 
 
-  $scope.addTicket = function () {
-    console.log($scope.ticket);
-  //assign random color for each ticket's dot
-  function getRandomColor() {
-    var letters = '0123456789ABCDEF'.split(''),
-        color = '#';
-    for(var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
+  $scope.mustAdd = function () {
+
+    if(!$scope.ticket.location){
+      $scope.isRed = true;
+    } else {
+
+    //assign random color for each ticket's dot
+     function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split(''),
+            color = '#';
+        for(var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      };
+
+    $scope.ticket.color =  getRandomColor();
+
+    //retrieve new ticket from html form, pass to add Ticket function
+
+    Tickets.addTicket($scope.ticket)
+      .then(function () {
+        $scope.ticket = {};
+        $scope.isRed = false;
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
     }
-    return color;
-  };
-
-  $scope.ticket.color =  getRandomColor();
-
-  //retrieve new ticket from html form, pass to add Ticket function
-
-  Tickets.addTicket($scope.ticket)
-    .then(function () {
-      $scope.ticket = {};
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
   }
 
   $scope.signout = function () {
