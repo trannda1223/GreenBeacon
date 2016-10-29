@@ -33,11 +33,10 @@ angular.module('app.admin', [])
   $scope.updateTable = function() {
     //pull user data from users array (returned from DB) by filtering
       //set selectedPerson model equal to the user that matches displayname in the menu
+      $scope.person = 'PERSON';
     $scope.selectedPerson = $scope.users
     .filter(function(user){
-      if($scope.person){
         return user.displayname === $scope.person;
-      }
      })[0];
 
      $scope.selectedPerson.authorizationTitle =
