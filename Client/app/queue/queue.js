@@ -16,36 +16,39 @@ angular.module('app.queue', [])
     } else if($scope.view === 'user') {
       $scope.showUserTickets();
     }
-
   });
 
-
+  //set threshold levels for ticket colors
   Tickets.getThresholds()
-    .then(function(levels) {
-      var setLevels = levels.data;
+  .then(function(levels) {
+    var setLevels = levels.data;
 
-      $scope.student = setLevels.filter(function(level){
-        return level.authorizationlevel === 1;
-      })[0];
+    $scope.student = setLevels.filter(function(level){
+      return level.authorizationlevel === 1;
+    })[0];
 
-      $scope.fellow = setLevels.filter(function(level){
-        return level.authorizationlevel === 2;
-      })[0];
+    $scope.fellow = setLevels.filter(function(level){
+      return level.authorizationlevel === 2;
+    })[0];
 
-      $scope.teacher = setLevels.filter(function(level){
-        return level.authorizationlevel === 3;
-      })[0];
-    })
+    $scope.teacher = setLevels.filter(function(level){
+      return level.authorizationlevel === 3;
+    })[0];
+  })
 
   $scope.initializeQueue = function() {
     $scope.view = 'lobby';
     //retrieve tickets from database
     Tickets.getTickets()
       .then(function(results){
+
+        console.log(results);
+
         $scope.isadmin = results.data.isadmin;
         $scope.userID = results.data.userID;
         $scope.name = results.data.displayname.split(" ")[0];
         $scope.authorizationlevel = results.data.authorizationlevel;
+
         $scope.setUserRole = function() {
           if ($scope.authorizationlevel === 1) {
             $scope.role = 'student';
@@ -56,6 +59,7 @@ angular.module('app.queue', [])
           }
         };
         $scope.setUserRole();
+
 
 
         SVGpulse = document.getElementsByClassName('pulse');
@@ -167,7 +171,6 @@ angular.module('app.queue', [])
   $scope.ticket = {};
 
   $scope.getCoordinates = function(event) {
-    console.log(event);
     var x = event.offsetX;
     var y = event.offsetY;
     var coords = "X coords: " + x + ", Y coords: " + y;
@@ -216,6 +219,7 @@ angular.module('app.queue', [])
 
 
   $scope.addTicket = function () {
+    console.log($scope.ticket);
   //assign random color for each ticket's dot
   function getRandomColor() {
     var letters = '0123456789ABCDEF'.split(''),

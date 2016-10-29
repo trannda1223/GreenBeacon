@@ -83,9 +83,9 @@ module.exports = {
 
     User.find({ where: { username: req.user.username } }).then(function(user){
 
-      TicketLevel.find({where: { authorizationlevel: user.authorizationlevel }}).then(function(authlevel) {
+      TicketLevel.find({where: { authorizationlevel: user.authorizationlevel }}).then(function(ticketLevel) {
 
-        Ticket.findAll({ include: [User], where: {$or: [{unsolvedCount: {lt: authlevel.threshold} }, {userId: user.id }]}  })
+        Ticket.findAll({ include: [User], where: {$and: [{unsolvedCount: {lt: ticketLevel.threshold} }, {userId: {$not: user.id} }]}  })
           .then(function(tickets) {
             Claim.findAll({ include: [User, Ticket] })
               .then(function(claims) {
@@ -99,7 +99,6 @@ module.exports = {
   },
 
   // query for tickets for currently signed in user
-
   getUserTickets: function(req, res) {
     // console.log(req);
 
