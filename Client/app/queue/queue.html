@@ -40,7 +40,6 @@
   </div>
 	<div id="queueContainer">
 		<div class="list-group">
-		  
 		  <div  class="ticket" ng-repeat="ticket in data.tickets | filter: {solved: false} | orderBy:'-unsolvedCount' ">
 		    <!-- Renders each ticket to the queue -->
 		    <a class="list-group-item list-group-item-action" ng-class="{'ticket-claimed list-group-item list-group-item-action': ticket.claimed,  'studentTicket list-group-item list-group-item-action' : (ticket.unsolvedCount <= 1), 'fellowTicket list-group-item list-group-item-action' : (ticket.unsolvedCount === 2), 'instructorTicket list-group-item list-group-item-action' : (ticket.unsolvedCount > 2),    'list-group-item list-group-item-action': !ticket.claimed}" ng-mouseover = 'showDot(ticket.x, ticket.y)' ng-mouseleave = 'renew()' x = {{ticket.x}} y ={{ticket.y}}>
@@ -78,10 +77,10 @@
 
 	<!-- Map -->
 	<div id="map">
-		<h1>Click your location on map!</h1>
-		<svg width="400" height="800">
+	
+		<svg width="600" height="600">
 		<!-- Loads map image -->
-			<image ng-click="getCoordinates($event)" x="0" y="0" width="400" height="800" xlink:href="../../../smaller.png" />
+			<image ng-click="getCoordinates($event)" x="0" y="0" width="500" height="600" xlink:href="../../../smaller.png" />
 				<!-- Adds pulsing dots for each ticket -->
 				<foreignobject  ng-repeat="ticket in data.tickets | filter: {solved: false}" ng-attr-x="{{ticket.x}}" ng-attr-y="{{ticket.y}}">
 					<div id="holder">
