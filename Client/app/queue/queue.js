@@ -279,6 +279,18 @@ angular.module('app.queue', [])
        });
   }
 
+  $scope.claimTicket = function (ticket) {
+    //once 'claim' has been clicked'
+      //pass the claimed ticket to claim Ticket service
+    Tickets.claimTicket(ticket)
+      .then(function () {
+        initializeQueue();
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+
+  }
 
   $scope.unsolveTicket = function (ticket) {
 
