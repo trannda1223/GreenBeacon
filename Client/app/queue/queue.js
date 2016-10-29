@@ -63,11 +63,11 @@ angular.module('app.queue', [])
 
         $scope.setUserRole = function() {
           if ($scope.authorizationlevel === 1) {
-            $scope.role = 'student';
+            $scope.role = 'Student';
           } else if ($scope.authorizationlevel === 2) {
-            $scope.role = 'fellow';
+            $scope.role = 'Fellow';
           } else {
-            $scope.role = 'instructor';
+            $scope.role = 'Instructor';
           }
         };
         $scope.setUserRole();
