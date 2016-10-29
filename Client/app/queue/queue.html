@@ -16,7 +16,7 @@
 <div id="big-container">
 
   <!-- Tickets queue -->
-  <div class='ticketNav'> 
+  <div class='ticketNav'>
   	<button type='btn' class='lobby btn btn-default' ng-click="initializeQueue()">Lobby</button>
   	<button type='btn' class='user btn btn-default' ng-click="showUserTickets()">User</button>
   </div>
@@ -50,6 +50,7 @@
 	<!-- Map -->
 	<div id="map">
 
+		<div ng-show="bathroomAlert" class="bathroomAlert"> Y U on UR laptop in the bathroom homes?!</div>
 		<svg width="600" height="600">
 		<!-- Loads map image -->
 			<image ng-click="getCoordinates($event)" x="0" y="0" width="500" height="600" xlink:href="../../../smaller.png" />
