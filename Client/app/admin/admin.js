@@ -35,7 +35,7 @@ angular.module('app.admin', [])
       //set selectedPerson model equal to the user that matches displayname in the menu
     $scope.selectedPerson = $scope.users
     .filter(function(user){
-      if(user.displayname){
+      if($scope.person){
         return user.displayname === $scope.person;
       }
      })[0];
