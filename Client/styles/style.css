@@ -19,6 +19,7 @@ h1 {
 	margin-bottom: 0;
 }
 
+
 table {
 	margin-top: 2.5%;
 }
@@ -98,8 +99,15 @@ input[type=number] {
 .list-group-item, .form-control, .input-text {
 	background-color: #E8E9F9;
 }
+
 .locationtext {
-	color: #E8E9F9;
+	margin-left: 10px;
+	color: white;
+}
+
+.red {
+	color: red;
+  text-shadow: 0 0 0.2em #FF6C6C;
 }
 
 .input-text {
@@ -116,7 +124,6 @@ input[type=number] {
 
 .btn {
 	color: #613DC1;
-
 }
 
 .btn-1 {

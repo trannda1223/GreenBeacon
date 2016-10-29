@@ -5,6 +5,7 @@ angular.module('app.queue', [])
 
 .controller('QueueController', ['$scope', 'Tickets', 'Auth', '$location', function($scope, Tickets, Auth, $location){
   $scope.isadmin = false;
+  $scope.isRed = false;
   $scope.view;
   $scope.data = {};
   var SVGpulse;
@@ -218,29 +219,35 @@ angular.module('app.queue', [])
 }
 
 
-  $scope.addTicket = function () {
-    console.log($scope.ticket);
-  //assign random color for each ticket's dot
-  function getRandomColor() {
-    var letters = '0123456789ABCDEF'.split(''),
-        color = '#';
-    for(var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
+  $scope.mustAdd = function () {
+
+    if(!$scope.ticket.location){
+      $scope.isRed = true;
+    } else {
+
+    //assign random color for each ticket's dot
+     function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split(''),
+            color = '#';
+        for(var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      };
+
+    $scope.ticket.color =  getRandomColor();
+
+    //retrieve new ticket from html form, pass to add Ticket function
+
+    Tickets.addTicket($scope.ticket)
+      .then(function () {
+        $scope.ticket = {};
+        $scope.isRed = false;
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
     }
-    return color;
-  };
-
-  $scope.ticket.color =  getRandomColor();
-
-  //retrieve new ticket from html form, pass to add Ticket function
-
-  Tickets.addTicket($scope.ticket)
-    .then(function () {
-      $scope.ticket = {};
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
   }
 
   $scope.signout = function () {

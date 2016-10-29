@@ -106,6 +106,7 @@ angular.module('app.services', [])
     })
     .then(function(data){
       return data;
+      Socket.emit('getThresholds');
     });
   };
   //Sends PUT request to the server in order to reset the thresholds for ticket
@@ -115,7 +116,10 @@ angular.module('app.services', [])
       method: 'PUT',
       url: '/ticketLevel',
       data: ticket
-    });
+    })
+      .then(function() {
+        Socket.emit('updateThresholds');
+      })
   };
 
   return {
