@@ -40,11 +40,9 @@ angular.module('app.queue', [])
   $scope.initializeQueue = function() {
     $scope.view = 'lobby';
     //retrieve tickets from database
+    Tickets.getThresholds();
     Tickets.getTickets()
       .then(function(results){
-
-        console.log(results);
-
         $scope.isadmin = results.data.isadmin;
         $scope.userID = results.data.userID;
         $scope.name = results.data.displayname.split(" ")[0];
