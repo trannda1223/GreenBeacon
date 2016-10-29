@@ -91,8 +91,9 @@ angular.module('app.queue', [])
           }
 
           if (ticket.claimed && !ticket.preSolved && ticket.userId === results.data.userID) {
+            var claimer = ticket.claimer;
             Tickets.setPresolve(ticket).then(function(response){
-              alert(ticket.claimer + 'is on their way!');
+              alert(claimer + 'is on their way!');
             })
 
           }
