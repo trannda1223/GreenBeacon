@@ -355,9 +355,9 @@ footer {
 
 
 /*extra stuff I don't think we need (but just in case):*/
-/*.clearfix {
+.clearfix {
   overflow: auto;
-}*/
+}
 
 .logo {
   width:180px;
