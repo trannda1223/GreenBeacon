@@ -39,7 +39,7 @@ angular.module('app.admin', [])
      })[0];
 
      $scope.selectedPerson.authorizationTitle =
-      $scope.authorizationTitleLevelMap[$scope.selectedPerson.authorizationlevel];
+      $scope.authorizationTitleLevelMap[$scope.selectedPerson.authorizationlevel] ? $scope.authorizationTitleLevelMap[$scope.selectedPerson.authorizationlevel] : 'User';
 
     console.log($scope.selectedPerson.authorizationTitle, 'authtitle');
   };
