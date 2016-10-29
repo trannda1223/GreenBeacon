@@ -206,7 +206,7 @@ angular.module('app.queue', [])
      $scope.ticket.location = 'Entrance Hall';
     }
     //  water closet
-    if ($scope.ticket.x <=215 && $scope.ticket.x >= 60 && $scope.ticket.y <= 339 && $scope.ticket.y >=256) {
+    if ($scope.ticket.x <=230 && $scope.ticket.x >= 70 && $scope.ticket.y <= 339 && $scope.ticket.y >=256) {
      $scope.ticket.location = '';
      $scope.bathroomAlert = !$scope.bathroomAlert;
     };
