@@ -178,39 +178,42 @@ angular.module('app.queue', [])
     $scope.ticket.x = x;
     $scope.ticket.y = y;
 
-
-    if ($scope.ticket.x <=190 && $scope.ticket.x >= 0 && $scope.ticket.y <= 123 && $scope.ticket.y >=0) {
+    if ($scope.ticket.x <= 258 && $scope.ticket.x >= 102 && $scope.ticket.y <= 85 && $scope.ticket.y >= 16) {
       $scope.ticket.location = 'Lecture Hall';
     };
 
-    if ($scope.ticket.x <=190 && $scope.ticket.x >= 0 && $scope.ticket.y <= 239 && $scope.ticket.y >=124) {
+    if ($scope.ticket.x <= 258 && $scope.ticket.x >= 102 && $scope.ticket.y <= 159 && $scope.ticket.y >= 86) {
       $scope.ticket.location = 'Pairing Stations';
     };
-    if ($scope.ticket.x <=190 && $scope.ticket.x >= 25 && $scope.ticket.y <= 320 && $scope.ticket.y >=240) {
+
+    if ($scope.ticket.x <= 258 && $scope.ticket.x >= 102 && $scope.ticket.y <= 255 && $scope.ticket.y >= 160) {
       $scope.ticket.location = 'Kitchen';
     };
-    if ($scope.ticket.x <=370 && $scope.ticket.x >= 250 && $scope.ticket.y <= 325 && $scope.ticket.y >=230) {
+
+    if ($scope.ticket.x <=393 && $scope.ticket.x >= 259 && $scope.ticket.y <= 255 && $scope.ticket.y >= 160) {
       $scope.ticket.location = 'Couch';
     };
-    if ($scope.ticket.x <=370 && $scope.ticket.x >= 270 && $scope.ticket.y <= 610 && $scope.ticket.y >=370) {
+    if ($scope.ticket.x <=393 && $scope.ticket.x >= 232 && $scope.ticket.y <= 484 && $scope.ticket.y >=257) {
       $scope.ticket.location = 'Senior Zone';
     };
-    if ($scope.ticket.x <=160 && $scope.ticket.x >= 25 && $scope.ticket.y <= 550 && $scope.ticket.y >=470) {
+    if ($scope.ticket.x <=231 && $scope.ticket.x >= 102 && $scope.ticket.y <= 433 && $scope.ticket.y >=340) {
       $scope.ticket.location = 'The Hopper';
     };
-    if ($scope.ticket.x <=160 && $scope.ticket.x >= 25 && $scope.ticket.y <= 655 && $scope.ticket.y >=590) {
+    if ($scope.ticket.x <=231 && $scope.ticket.x >= 102 && $scope.ticket.y <= 507 && $scope.ticket.y >=434) {
       $scope.ticket.location = 'The Dijkstra';
     };
-    if ($scope.ticket.x <=370 && $scope.ticket.x >= 290 && $scope.ticket.y <= 760 && $scope.ticket.y >=650) {
+    if ($scope.ticket.x <=393 && $scope.ticket.x >= 311 && $scope.ticket.y <= 595 && $scope.ticket.y >=485) {
       $scope.ticket.location = 'The Ada';
     };
-    if ($scope.ticket.x <=260 && $scope.ticket.x >= 25 && $scope.ticket.y <= 760 && $scope.ticket.y >=656) {
+    if ($scope.ticket.x <=310 && $scope.ticket.x >= 101 && $scope.ticket.y <= 595 && $scope.ticket.y >=508) {
      $scope.ticket.location = 'Entrance Hall';
     }
-    if ($scope.ticket.x <=160 && $scope.ticket.x >= 25 && $scope.ticket.y <= 470 && $scope.ticket.y >=320) {
+    //  water closet
+    if ($scope.ticket.x <=231 && $scope.ticket.x >= 102 && $scope.ticket.y <= 339 && $scope.ticket.y >=256) {
      $scope.ticket.location = '';
     };
-    if ($scope.ticket.x <= 400 && $scope.ticket.x >= 190 && $scope.ticket.y <= 239 && $scope.ticket.y >=50) {
+    // instructors office
+    if ($scope.ticket.x <= 400 && $scope.ticket.x >= 259 && $scope.ticket.y <= 159 && $scope.ticket.y >=16) {
      $scope.ticket.location = '';
     };
 

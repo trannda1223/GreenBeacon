@@ -66,9 +66,10 @@
 
 	<!-- Map -->
 	<div id="map">
-		<svg width="400" height="800">
+
+		<svg width="600" height="600">
 		<!-- Loads map image -->
-			<image ng-click="getCoordinates($event)" x="0" y="0" width="400" height="800" xlink:href="../../../smaller.png" />
+			<image ng-click="getCoordinates($event)" x="0" y="0" width="500" height="600" xlink:href="../../../smaller.png" />
 				<!-- Adds pulsing dots for each ticket -->
 				<foreignobject  ng-repeat="ticket in data.tickets | filter: {solved: false}" ng-attr-x="{{ticket.x}}" ng-attr-y="{{ticket.y}}">
 					<div id="holder">
