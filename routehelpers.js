@@ -4,7 +4,6 @@ var Sequelize = require('sequelize');
 // postgres models
 var User = require('./db/schema').User;
 var Ticket = require('./db/schema').Ticket;
-var Claim = require('./db/schema').Claim;
 var TicketLevel = require('./db/schema').TicketLevel;
 
 
@@ -80,38 +79,22 @@ module.exports = {
 
   // query for all tickets and claims that exist in DB and send to client
   getTickets: function(req, res) {
+    console.log(req.user, 'reqeust . user')
 
     User.find({ where: { username: req.user.username } }).then(function(user){
 
       TicketLevel.find({where: { authorizationlevel: user.authorizationlevel }}).then(function(ticketLevel) {
 
-        Ticket.findAll({ include: [User], where: {$and: [{unsolvedCount: {lt: ticketLevel.threshold} }, {userId: {$not: user.id} }]}  })
-          .then(function(tickets) {
-            Claim.findAll({ include: [User, Ticket] })
-              .then(function(claims) {
-                res.send({ tickets: tickets, claims: claims, userID: req.session.userID, isadmin: user.isadmin, displayname: user.displayname, authorizationlevel: user.authorizationlevel });
-              });
-          });
-      })
-
-      })
-
-  },
-
-  // query for tickets for currently signed in user
-  getUserTickets: function(req, res) {
-    // console.log(req);
-
-    User.find({ where: { username: req.user.username } }).then(function(user){
-      Ticket.findAll({ include: [User], where: {userId: user.id }  })
+        Ticket.findAll({ include: [User], where: {$or: [{unsolvedCount: {lt: ticketLevel.threshold} }, {userId:user.id} ]}})
         .then(function(tickets) {
-          Claim.findAll({ include: [User, Ticket] })
-            .then(function(claims) {
-              res.send({ tickets: tickets, claims: claims, userID: req.session.userID });
-            });
+          res.send({ tickets: tickets, userID: req.session.userID, isadmin: user.isadmin, displayname: user.displayname, authorizationlevel: user.authorizationlevel });
         });
+      })
     })
+
   },
+
+ 
 
   // create a new ticket instance and add it to the tickets table
   addToQueue: function(req, res) {
@@ -127,31 +110,30 @@ module.exports = {
   // mark the given ticket as claimed in the tickets table,
   // then add a new claim to the claims table
   tagClaimed: function(req, res) {
-    Ticket.find({ where: { id: req.body.id } })
+    Ticket.find({ where: { id: req.body.id}})
       .then(function(ticket) {
-        ticket.update({ claimed: true })
+        if (ticket.claimed) {
+          res.sendStatus(418);
+        } else {
+          ticket.update({ claimed: true, claimer: req.user.name })
           .then(function() {
-            Claim.create({ userId: req.session.userID, ticketId: req.body.id, helpeeId: req.body.userId })
-              .then(function() {
-                res.end();
-              });
-          });
+            res.end();
+          });  
+        }
       });
   },
 
   // delete the given claim from the claims table,
   // then flag the corresponding ticket as 'preSolved'
-  eraseClaim: function(req, res) {
-    Claim.destroy({ where: { id: req.body.id } })
-      .then(function() {
-        Ticket.find({ where: { id: req.body.ticketId } })
-          .then(function (ticket) {
-            ticket.update({ preSolved: true } )
-              .then(function() {
-                res.end();
-              });
-          });
+  setPresolve: function(req, res) {
+    Ticket.find({ where: { id: req.body.id}})
+    .then(function (ticket) {
+      ticket.update({ preSolved: true })
+        .then(function() {
+          res.end();
+        })
       });
+
   },
 
   // flag the given ticket as solved in the tickets table

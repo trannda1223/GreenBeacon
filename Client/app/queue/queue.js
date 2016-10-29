@@ -5,7 +5,18 @@ angular.module('app.queue', [])
 
 .controller('QueueController', ['$scope', 'Tickets', 'Auth', '$location', function($scope, Tickets, Auth, $location){
   $scope.isadmin = false;
-  $scope.view;
+  $scope.view = 'lobby';
+  $scope.toggleView = function(room){
+    console.log('room', room)
+    $scope.view = room;
+    if($scope.view === 'lobby') {
+     $scope.filtervalue = '!' + $scope.userID;
+    } else {
+      $scope.filtervalue = $scope.userID;
+    }
+    console.log('$scope.view', $scope.view);
+
+  };
   $scope.data = {};
   var SVGpulse;
   var SVGdot;
@@ -37,7 +48,6 @@ angular.module('app.queue', [])
   })
 
   $scope.initializeQueue = function() {
-    $scope.view = 'lobby';
     //retrieve tickets from database
     Tickets.getTickets()
       .then(function(results){
@@ -77,96 +87,45 @@ angular.module('app.queue', [])
           } else {
             ticket.ismine = false;
           }
-        }
 
-        //set claims to the scope
-        $scope.data.claims = results.data.claims;
-
-        //iterate through all claims
-        for (var claim of $scope.data.claims) {
-          //if the helpee (user) id of the claim matches the current session user
-          if (claim.helpeeId === results.data.userID) {
-            //alert the helpee and include the name of the user who claimed the ticket
-            alert(claim.user.displayname + ' is on their way!');
-
-            for (var ticket of $scope.data.tickets) {
-              //if the ticket's claimed attribute is true and the user of the claimed ticket matches the current session user
-                //set the ticket's preSolved state to true
-              if (ticket.claimed && ticket.userId === results.data.userID) {
-                ticket.preSolved = true;
-              }
-            }
-            //Delete the claim from the database
-            Tickets.eraseClaim(claim)
-            .then(function () {
-              //wipe out client-side claims object
-               $scope.data.claims = {};
+          if (ticket.claimed && !ticket.presolved && ticket.userId === results.data.userID) {
+            Tickets.setPresolve(ticket).then(function(response){
+              alert(ticket.claimer + 'is on their way!');
             })
+
           }
         }
+
+        // //set claims to the scope
+        // $scope.data.claims = results.data.claims;
+
+        // //iterate through all claims
+        // for (var claim of $scope.data.claims) {
+        //   //if the helpee (user) id of the claim matches the current session user
+        //   if (claim.helpeeId === results.data.userID) {
+        //     //alert the helpee and include the name of the user who claimed the ticket
+        //     alert(claim.user.displayname + ' is on their way!');
+
+        //     for (var ticket of $scope.data.tickets) {
+        //       //if the ticket's claimed attribute is true and the user of the claimed ticket matches the current session user
+        //         //set the ticket's preSolved state to true
+        //       if (ticket.claimed && ticket.userId === results.data.userID) {
+        //         ticket.preSolved = true;
+        //       }
+        //     }
+        //     //Delete the claim from the database
+        //     Tickets.eraseClaim(claim)
+        //     .then(function () {
+        //       //wipe out client-side claims object
+        //        $scope.data.claims = {};
+        //     })
+        //   }
+        // }
       })
       .catch(function(error){
         console.error(error);
       })
-  }
-
-  $scope.showUserTickets = function() {
-    $scope.view = 'user';
-    //retrieve tickets from database
-    Tickets.getUserTickets()
-      .then(function(results){
-
-        SVGpulse = document.getElementsByClassName('pulse');
-        SVGdot = document.getElementsByClassName('dot');
-
-        //add tickets to the scope
-        $scope.data.tickets = results.data.tickets;
-        //iterate through all tickets
-        for (var ticket of $scope.data.tickets) {
-          //if the userId of the ticket matches the current session user
-          if (ticket.userId === results.data.userID) {
-
-            //add and set isMine attribute to true
-            ticket.ismine = true;
-          } else {
-            ticket.ismine = false;
-          }
-        }
-
-        //set claims to the scope
-        $scope.data.claims = results.data.claims;
-
-        //iterate through all claims
-        for (var claim of $scope.data.claims) {
-          //if the helpee (user) id of the claim matches the current session user
-          if (claim.helpeeId === results.data.userID) {
-            //alert the helpee and include the name of the user who claimed the ticket
-            console.log(claim, 'inside for loop before alert');
-            alert(claim.user.displayname + ' is on their way!');
-
-            for (var ticket of $scope.data.tickets) {
-              //if the ticket's claimed attribute is true and the user of the claimed ticket matches the current session user
-                //set the ticket's preSolved state to true
-                console.log(ticket, 'presolved stuff');
-              if (ticket.claimed && ticket.userId === results.data.userID) {
-                ticket.preSolved = true;
-              }
-            }
-            //Delete the claim from the database
-            console.log(claim, 'about to erase this claim');
-            Tickets.eraseClaim(claim)
-            .then(function () {
-              console.log('erased claim', claim);
-              //wipe out client-side claims object
-               $scope.data.claims = {};
-            })
-          }
-        }
-      })
-      .catch(function(error){
-        console.error(error);
-      })
-  }
+  };
 
   $scope.ticket = {};
 
@@ -267,7 +226,7 @@ angular.module('app.queue', [])
       //pass the claimed ticket to claim Ticket service
     Tickets.claimTicket(ticket)
       .catch(function (err) {
-        console.log(err);
+        alert('ticket has already been claimed');
       });
 
   }
